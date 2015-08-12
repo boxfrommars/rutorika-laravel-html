@@ -1,37 +1,41 @@
 <?php
+
 namespace Rutorika\Html;
 
 /**
- * Form builder, provides *Field methods for twitter bootstrap forms
+ * Form builder, provides *Field methods for twitter bootstrap forms.
  *
  * @TODO [column|label|buttonOffset]Width options
  *
  * Class FormBuilder
- * @package Rutorika\Html
  */
 class FormBuilder extends \Collective\Html\FormBuilder
 {
     public function textField($title, $name, $value = null, $options = array(), $help = '')
     {
         $control = $this->text($name, $value, $this->setDefaultOptions($options));
+
         return $this->field($title, $name, $control, $help);
     }
 
     public function passwordField($title, $name, $options = array(), $help = '')
     {
         $control = $this->password($name, $this->setDefaultOptions($options));
+
         return $this->field($title, $name, $control, $help);
     }
 
     public function checkboxField($title, $name, $value = 1, $checked = null, $options = [])
     {
         $control = '<div class="checkbox"><label>' . $this->checkbox($name, $value, $checked, $options) . '</label></div>';
+
         return $this->field($title, $name, $control, $options);
     }
 
     public function textareaField($title, $name, $value = null, $options = array(), $help = '')
     {
         $control = $this->textarea($name, $value, $this->setDefaultOptions($options));
+
         return $this->field($title, $name, $control, $help);
     }
 
@@ -96,6 +100,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
     {
         $options['class'] = isset($options['class']) ? $options['class'] . ' ' : '';
         $options['class'] .= $class;
+
         return $options;
     }
 }
