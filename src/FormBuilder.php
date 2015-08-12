@@ -27,7 +27,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function checkboxField($title, $name, $value = 1, $checked = null, $options = [])
     {
-        $control = '<div class="checkbox"><label>' . $this->checkbox($name, $value, $checked, $options) . '</label></div>';
+        $control = '<div class="checkbox"><label>'.$this->checkbox($name, $value, $checked, $options).'</label></div>';
 
         return $this->field($title, $name, $control, $options);
     }
@@ -68,9 +68,9 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
         $formClass = !empty($errors) && $errors->has($name) ? 'has-error' : '';
         $label = $this->label($name, $title, ['class' => "col-md-{$labelWidth} control-label"]);
-        $controlClass = 'col-md-' . $controlWidth;
+        $controlClass = 'col-md-'.$controlWidth;
         $error = empty($errors) ? '' : $errors->first($name, '<p class="help-block">:message</p>');
-        $help = empty($help) ? '' : '<p class="help-block">' . $help . '</p>';
+        $help = empty($help) ? '' : '<p class="help-block">'.$help.'</p>';
 
         return sprintf($template, $formClass, $label, $controlClass, $control, $error, $help);
     }
@@ -88,7 +88,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
             </div>
         ';
 
-        return sprintf($template, 'col-sm-offset-' . $offsetWidth, 'col-md-' . $controlWidth, $title);
+        return sprintf($template, 'col-sm-offset-'.$offsetWidth, 'col-md-'.$controlWidth, $title);
     }
 
     protected function setDefaultOptions($options)
@@ -98,7 +98,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     protected function appendClassToOptions($class, array $options = [])
     {
-        $options['class'] = isset($options['class']) ? $options['class'] . ' ' : '';
+        $options['class'] = isset($options['class']) ? $options['class'].' ' : '';
         $options['class'] .= $class;
 
         return $options;
