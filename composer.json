@@ -1,0 +1,28 @@
+{
+    "name": "rutorika/laravel-html",
+    "description": "Bootstrapped Forms",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmitry Groza",
+            "email": "boxfrommars@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/support": "5.*",
+        "laravelcollective/html": "5.1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4",
+        "orchestra/testbench": "3.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rutorika\\Html\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    }
+}
