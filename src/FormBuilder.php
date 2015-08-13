@@ -39,11 +39,40 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $help);
     }
 
+    public function hiddenField($title, $name, $value = null, $options = [], $help = '')
+    {
+        $control = $this->hidden($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
+    public function numberField($title, $name, $value = null, $options = [], $help = '')
+    {
+        $control = $this->number($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
+    public function selectField($title, $name, $list = [], $selected = null, $options = [], $help = '')
+    {
+        $control = $this->select($name, $list, $selected, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
     public function codeField($title, $name, $value = null, $options = array(), $help = '')
     {
         $options = $this->appendClassToOptions('hidden', $this->setDefaultOptions($options));
         $control = $this->textarea($name, $value, $this->setDefaultOptions($options));
         $control .= '<div class="ace-editor"></div>';
+
+        return $this->field($title, $name, $control, $help);
+    }
+
+    public function staticField($title, $value, $help = '')
+    {
+        $name = 'static-'.uniqid();
+        $control = '<p class="form-control-static">'.$value.'</p>';
 
         return $this->field($title, $name, $control, $help);
     }

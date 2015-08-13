@@ -67,6 +67,10 @@ will generate html:
  * `Form::textareaField($title, $name, $value = null, $options = array(), $help = '')` textarea field
  * `Form::passwordField($title, $name, $options = array(), $help = '')`
  * `Form::checkboxField($title, $name, $value = 1, $checked = null, $options = [])`
+ * `Form::hiddenField($title, $name, $value = 1, $checked = null, $options = [])`
+ * `Form::numberField($title, $name, $value = 1, $checked = null, $options = [])`
+ * `Form::selectField($title, $name, $list = [], $selected = null, $options = [], $help = '')`
+ * `Form::staticField($title, $value, $help = '')` static text
 
 ### Custom Form fields
 
@@ -95,6 +99,27 @@ You should [embed Ace to your site](http://ace.c9.io/#nav=embedding) and apply i
     });
   });
 ```
+
+#### Color Field
+*@TODO move from rutorika/dashboard*
+#### Geopoint Field
+*@TODO move from rutorika/dashboard*
+#### Image Field
+*@TODO move from rutorika/dashboard*
+#### Image Multiple Field
+*@TODO move from rutorika/dashboard*
+#### File Field
+*@TODO move from rutorika/dashboard*
+#### File Multiple Field
+*@TODO move from rutorika/dashboard*
+#### Select2 Field
+*@TODO move from rutorika/dashboard*
+#### Date Field
+*@TODO move from rutorika/dashboard*
+#### Datetime Field
+*@TODO move from rutorika/dashboard*
+#### Time Field
+*@TODO move from rutorika/dashboard*
 
 ### Helper methods
 
