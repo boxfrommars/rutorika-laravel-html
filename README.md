@@ -165,7 +165,7 @@ Wraps `$control` html string with form group. It's helpful when you write your o
 Returns form which will send pseudo DELETE request to `$url` url after submit (icon clicked). Styled as icon link. Useful in grids
 
 ```php
-delete_form($route, $label = '<i class="glyphicon glyphicon-remove"></i>')
+delete_form($url, $label = '<i class="glyphicon glyphicon-remove"></i>')
 ```
 
 Generates:
