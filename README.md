@@ -31,7 +31,7 @@ Add service provider and facades to your `config/app.php`
 
 ## Usage
 
-This package adds Form::*Filds methods.
+This package provides Form::*Fields methods.
 First argument for this methods is `$title` which wil be set as label of the field.
 Next arguments are the same as arguments in original * method.
 The last argument is `$help` which will be set as help text under the input.
