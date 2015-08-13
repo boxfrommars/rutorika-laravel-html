@@ -59,6 +59,8 @@ will generate html:
 </div>
 ```
 
+Also all error messages and corresponding css-classes if errors exists will be appended to the field.
+
 ## Available Form Methods
 
 ### Wrappers for laravelcollective form inputs
