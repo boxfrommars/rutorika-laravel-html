@@ -67,8 +67,8 @@ will generate html:
  * `Form::textareaField($title, $name, $value = null, $options = array(), $help = '')` textarea field
  * `Form::passwordField($title, $name, $options = array(), $help = '')`
  * `Form::checkboxField($title, $name, $value = 1, $checked = null, $options = [])`
- * `Form::hiddenField($title, $name, $value = 1, $checked = null, $options = [])`
- * `Form::numberField($title, $name, $value = 1, $checked = null, $options = [])`
+ * `Form::hiddenField($title, $name, $value = null, $options = [], $help = '')` useless :)
+ * `Form::numberField($title, $name, $value = null, $options = [], $help = '')`
  * `Form::selectField($title, $name, $list = [], $selected = null, $options = [], $help = '')`
  * `Form::staticField($title, $value, $help = '')` static text
 
