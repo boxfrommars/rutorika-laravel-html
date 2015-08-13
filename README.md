@@ -1,4 +1,4 @@
-# Twitter Bootstrap Form for Laravel 5
+# Twitter Bootstrap Forms for Laravel 5
 
 Based on [LaravelCollective/html](https://github.com/LaravelCollective/html)
 
