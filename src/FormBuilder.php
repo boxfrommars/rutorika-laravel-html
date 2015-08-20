@@ -67,11 +67,18 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $help);
     }
 
+    public function geopointField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        $control = $this->geopoint($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
     /**
      * Code textarea field (Ace redactor will be applied to this field)
      *
      * available options:
-     * mode : 'language' @see
+     * mode : 'php'
      * theme: 'monokai'
      *
      * @param $title
@@ -121,6 +128,11 @@ class FormBuilder extends \Collective\Html\FormBuilder
         }
 
         return $this->text($name, $value, $options);
+    }
+
+    public function geopoint($name, $value = null, $options = [])
+    {
+        return '<div class="js-map"></div>' . $this->text($name, $value, $options);
     }
 
     public function field($title, $name, $control = '', $help = '')
