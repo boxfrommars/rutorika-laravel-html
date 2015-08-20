@@ -112,6 +112,9 @@ class FormBuilder extends \Collective\Html\FormBuilder
     {
         $options = $this->appendClassToOptions('js-color-field', $options);
         $minicolorsOptions = $options['minicolor'];
+
+        unset($options['minicolor']);
+
         $options['data-minicolor'] = json_encode($minicolorsOptions);
 
         return $this->text($name, $value, $options);
