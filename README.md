@@ -81,23 +81,37 @@ Also all error messages and corresponding css-classes if errors exists will be a
 [Ace](http://ace.c9.io/) code editor field
 
 ```php
-Form::codeField($title, $name, $value = null, $options = array(), $help = '')
+Form::codeField($title, $name, $value = null, $options = array('mode' => 'html', 'theme' => 'monokai'), $help = '')
 ```
+
+##### Options
+* `theme` -- code editor theme, default -- `textmate`. [See all themes](https://github.com/ajaxorg/ace/tree/master/lib/ace/theme)
+* `mode` -- code language, default -- `html`. [See all modes](https://github.com/ajaxorg/ace/tree/master/lib/ace/mode)
+
+##### Installation
 
 You should [embed Ace to your site](http://ace.c9.io/#nav=embedding) and apply it to textareas with `ace-editor` css class. For example:
 
 ```js
   $('.ace-editor').each(function(){
+
+    var $editor = $(this);
     var editor = ace.edit(this);
-    var $textarea = $(this).siblings('textarea');
+    var $textarea = $editor.siblings('textarea');
+
+    var mode = 'ace/mode/' + $editor.data('mode');
+    var theme = $editor.data('theme');
+
+    editor.getSession().setMode(mode);
+
+    if (theme) {
+        editor.setTheme('ace/theme/' + theme);
+    }
 
     editor.getSession().setValue($textarea.val());
 
-    //editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/html");
-
     editor.getSession().on('change', function(){
-      $textarea.val(editor.getSession().getValue());
+        $textarea.val(editor.getSession().getValue());
     });
   });
 ```
