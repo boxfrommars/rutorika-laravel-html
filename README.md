@@ -121,12 +121,28 @@ You should [embed Ace to your site](http://ace.c9.io/#nav=embedding) and apply i
 [Jquery Minicolors](http://labs.abeautifulsite.net/jquery-minicolors/) colorpicker field
 
 ```php
-Form::colorField($title, $name, $value = null, $options = ['minicolor' => ['control' => 'hue']], $help = '')
+Form::colorField($title, $name, $value = null, $options = ['minicolors' => ['control' => 'hue']], $help = '')
 ```
 
 ##### Options
 
-* `'minicolor' => ['control' => 'hue', 'defaultValue' => '', /* ... */]`. All this settings will be passed to minicolors settings. [See all available settings](http://labs.abeautifulsite.net/jquery-minicolors/#settings).
+* `'minicolors' => ['control' => 'hue', 'defaultValue' => '', /* ... */]`. All this settings will be passed to minicolors settings. [See all available settings](http://labs.abeautifulsite.net/jquery-minicolors/#settings).
+
+##### Installation
+
+You should [embed Jquery Minicolors to your site](http://labs.abeautifulsite.net/jquery-minicolors/#download) and apply it to fields:
+
+```js
+$('.js-color-field').each(function () {
+    var $field = $(this);
+    var settings = $field.data('minicolors');
+
+    settings = $.extend({theme: 'bootstrap'}, settings);
+
+    $field.minicolors(settings);
+});
+```
+
 
 #### Geopoint Field
 *@TODO move from rutorika/dashboard*
