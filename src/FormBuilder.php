@@ -118,20 +118,18 @@ class FormBuilder extends \Collective\Html\FormBuilder
     public function color($name, $value = null, $options = [])
     {
         $options = $this->appendClassToOptions('js-color-field', $options);
-
-        if (isset($options['minicolors'])) {
-            if (is_array($options['minicolors'])) {
-                $options['data-minicolors'] = json_encode($options['minicolors']);
-            }
-
-            unset($options['minicolors']);
-        }
+        $options = $this->provideOptionToHtml('minicolors', $options);
 
         return $this->text($name, $value, $options);
     }
 
     public function geopoint($name, $value = null, $options = [])
     {
+        $options = $this->appendClassToOptions('js-map-field', $options);
+        $options = $this->provideOptionToHtml('map', $options);
+        $options = $this->provideOptionToHtml('layer', $options);
+        $options = $this->provideOptionToHtml('type', $options);
+
         return '<div class="js-map"></div>' . $this->text($name, $value, $options);
     }
 
@@ -187,6 +185,22 @@ class FormBuilder extends \Collective\Html\FormBuilder
     {
         $options['class'] = isset($options['class']) ? $options['class'] . ' ' : '';
         $options['class'] .= $class;
+
+        return $options;
+    }
+
+    /**
+     * @param string $optionName
+     * @param array $options
+     *
+     * @return mixed
+     */
+    protected function provideOptionToHtml($optionName, $options)
+    {
+        if (isset($options[$optionName])) {
+            $options['data-' . $optionName] = is_scalar($options[$optionName]) ? $options[$optionName] : json_encode($options[$optionName]);
+            unset($options[$optionName]);
+        }
 
         return $options;
     }
