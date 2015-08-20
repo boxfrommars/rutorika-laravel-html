@@ -117,7 +117,13 @@ You should [embed Ace to your site](http://ace.c9.io/#nav=embedding) and apply i
 ```
 
 #### Color Field
-*@TODO move from rutorika/dashboard*
+
+[Jquery Minicolors](http://labs.abeautifulsite.net/jquery-minicolors/) colorpicker field
+
+```php
+Form::colorField($title, $name, $value = null, $options = ['minicolor' => ['control' => 'hue']], $help = '')
+```
+
 #### Geopoint Field
 *@TODO move from rutorika/dashboard*
 #### Image Field

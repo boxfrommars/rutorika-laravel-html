@@ -60,6 +60,13 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $help);
     }
 
+    public function colorField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        $control = $this->color($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
     /**
      * Code textarea field (Ace redactor will be applied to this field)
      *
@@ -96,6 +103,18 @@ class FormBuilder extends \Collective\Html\FormBuilder
         $control = '<p class="form-control-static">' . $value . '</p>';
 
         return $this->field($title, $name, $control, $help);
+    }
+
+
+    /* INPUTS */
+
+    public function color($name, $value = null, $options = [])
+    {
+        $options = $this->appendClassToOptions('js-color-field', $options);
+        $minicolorsOptions = $options['minicolor'];
+        $options['data-minicolor'] = json_encode($minicolorsOptions);
+
+        return $this->text($name, $value, $options);
     }
 
     public function field($title, $name, $control = '', $help = '')
