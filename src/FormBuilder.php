@@ -82,7 +82,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
         $attributes = '';
 
         $mode = !empty($options['mode']) ? $options['mode'] : 'html';
-        $theme = !empty($options['theme']) ? $options['theme'] : 'github';
+        $theme = !empty($options['theme']) ? $options['theme'] : 'textmate';
 
         $attributes .= sprintf('data-mode="%s" data-theme="%s"', $mode, $theme);
         $control .= sprintf('<div class="ace-editor" %s></div>', $attributes);
