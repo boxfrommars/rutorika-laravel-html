@@ -124,6 +124,10 @@ You should [embed Ace to your site](http://ace.c9.io/#nav=embedding) and apply i
 Form::colorField($title, $name, $value = null, $options = ['minicolor' => ['control' => 'hue']], $help = '')
 ```
 
+##### Options
+
+* `'minicolor' => ['control' => 'hue', 'defaultValue' => '', /* ... */]`. All this settings will be passed to minicolors settings. [See all available settings](http://labs.abeautifulsite.net/jquery-minicolors/#settings).
+
 #### Geopoint Field
 *@TODO move from rutorika/dashboard*
 #### Image Field
