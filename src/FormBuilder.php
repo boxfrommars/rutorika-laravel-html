@@ -146,7 +146,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
           <div class="media-body"></div>
         </div>';
 
-        return sprintf($template, '');
+        return sprintf($template, 'http://lorempixel.com/400/200/fashion/', 'http://lorempixel.com/400/200/fashion/');
     }
 
     public function field($title, $name, $control = '', $help = '')
