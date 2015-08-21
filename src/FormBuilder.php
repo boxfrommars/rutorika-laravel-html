@@ -96,6 +96,30 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $help);
     }
 
+    public function imageUploadField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        $control = $this->imageUpload($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
+    public function fileUploadField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        $control = $this->fileUpload($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
+    public function imageField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        return $this->imageUploadField($title, $name, $value, $options, $help);
+    }
+
+    public function fileField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        return $this->fileUploadField($title, $name, $value, $options, $help);
+    }
+
     public function staticField($title, $value, $help = '')
     {
         $name = 'static-' . uniqid();
@@ -134,19 +158,63 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return '<div class="js-map"></div>' . $this->text($name, $value, $options);
     }
 
-    public function img($name, $value = null, $options = [])
+    public function imageUpload($name, $value = null, $options = [])
     {
+        $options = $this->appendClassToOptions('js-uploader-field', $options);
+        $options = $this->appendClassToOptions('hidden', $options);
+        $options = $this->provideOptionToHtml('url', $options);
+        $options = $this->provideOptionToHtml('type', $options);
+
+        $fileValue = $this->getValueAttribute($name, $value);
+
         $template = '
-        <div class="media">
-            <div class="media-left">
-              <a href="%s">
-                <img class="media-object" src="%s" />
-              </a>
+        <div class="media js-upload-container js-upload-image-container">
+            <div class="upload-result-wrap">
+                <a href="%s" class="upload-result"><img src="%s" /></a>
             </div>
-          <div class="media-body"></div>
+            <div>
+                <span class="btn btn-default btn-sm fileinput-button">
+                  <i class="glyphicon glyphicon-picture"></i>%s
+                </span><!--
+                --><span class="btn btn-default btn-sm js-upload-remove">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </span>
+            </div>
         </div>';
 
-        return sprintf($template, 'http://lorempixel.com/400/200/fashion/', 'http://lorempixel.com/400/200/fashion/');
+        $fileField = $this->file(null, []);
+
+        return sprintf($template, $fileValue, $fileValue, $fileField) . $this->text($name, $value, $options);
+    }
+
+    public function fileUpload($name, $value = null, $options = [])
+    {
+        $options = $this->appendClassToOptions('js-uploader-field', $options);
+        $options = $this->appendClassToOptions('hidden', $options);
+        $options = $this->provideOptionToHtml('url', $options);
+        $options = $this->provideOptionToHtml('type', $options);
+
+        $fileValue = $this->getValueAttribute($name, $value);
+
+        $template = '
+        <div class="media js-upload-container js-upload-file-container">
+            <div class="upload-result-wrap">
+                <p class="form-control-static">
+                  <span class="btn btn-default btn-sm fileinput-button">
+                  <i class="glyphicon glyphicon-picture"></i>%s
+                    </span><!--
+                    --><span class="btn btn-default btn-sm js-upload-remove">
+                      <i class="glyphicon glyphicon-remove"></i>
+                    </span><!--
+                    --><a href="%s" target="_blank" class="upload-result">%s</a>
+                </p>
+            </div>
+        </div>';
+
+        $fileField = $this->file(null, []);
+
+        return sprintf($template, $fileField, $fileValue, $fileValue) . $this->text($name, $value, $options);
+
     }
 
     public function field($title, $name, $control = '', $help = '')
