@@ -134,6 +134,21 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return '<div class="js-map"></div>' . $this->text($name, $value, $options);
     }
 
+    public function img($name, $value = null, $options = [])
+    {
+        $template = '
+        <div class="media">
+            <div class="media-left">
+              <a href="%s">
+                <img class="media-object" src="%s" />
+              </a>
+            </div>
+          <div class="media-body"></div>
+        </div>';
+
+        return sprintf($template, '');
+    }
+
     public function field($title, $name, $control = '', $help = '')
     {
         $errors = $this->session ? $this->session->get('errors') : null;
