@@ -81,6 +81,9 @@ Also all error messages and corresponding css-classes if errors exists will be a
 [Ace](http://ace.c9.io/) code editor field
 
 ```php
+// as input
+Form::code($name, $value = null, $options = array('mode' => 'html', 'theme' => 'monokai'))
+// as field
 Form::codeField($title, $name, $value = null, $options = array('mode' => 'html', 'theme' => 'monokai'), $help = '')
 ```
 
@@ -90,22 +93,21 @@ Form::codeField($title, $name, $value = null, $options = array('mode' => 'html',
 
 ##### Installation
 
-You should [embed Ace to your site](http://ace.c9.io/#nav=embedding) and apply it to textareas with `ace-editor` css class. For example:
+You should [embed Ace to your site](http://ace.c9.io/#nav=embedding) and apply it to textareas with `js-code-field` css class. For example:
 
 ```js
+
+// codeField
 $('.js-code-field').each(function () {
 
     var $field = $(this);
     var editor = ace.edit($field.siblings('.js-code').get(0));
 
-    var mode = 'ace/mode/' + $field.data('mode');
-    var theme = $field.data('theme');
+    var mode = $field.data('mode') || 'html';
+    var theme = $field.data('theme') || 'textmate';
 
-    editor.getSession().setMode(mode);
-
-    if (theme) {
-        editor.setTheme('ace/theme/' + theme);
-    }
+    editor.setTheme('ace/theme/' + theme);
+    editor.getSession().setMode('ace/mode/' + mode);
 
     editor.getSession().setValue($field.val());
 
@@ -167,7 +169,7 @@ Field generates string value `latitude:longitude`, e.g. `45.060184073445356:38.9
   - `osm`: default `http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`. [Find more](http://leaflet-extras.github.io/leaflet-providers/preview/)
   - `google`: default `ROADMAP`, available: `ROADMAP`, `SATELLITE`, `HYBRID`, `TERRAIN`. [More info](https://developers.google.com/maps/documentation/javascript/maptypes)
   - `bing`: default `Road`, available: `Road`, `Aerial`, `AerialWithLabels`, `Birdseye`, `BirdseyeWithLabels`. [More info](https://msdn.microsoft.com/en-us/library/ff701716.aspx)
-  - `yandex`: default `map`, available: `map`, `satellite`, `hybrid`, `publicMap`, `publicMapHybrid`
+  - `yandex`: default `map`, available: `map`, `satellite`, `hybrid`, `publicMap`, `publicMapHybrid`. [More info](https://tech.yandex.ru/maps/doc/jsapi/2.1/dg/concepts/map-docpage/#parameters)
 
 ##### Installation
 
