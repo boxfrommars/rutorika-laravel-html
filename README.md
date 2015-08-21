@@ -221,3 +221,11 @@ Generates:
 Example:
 
 ![Grid with delete forms example](https://habrastorage.org/files/b2a/380/96b/b2a38096b6e648978a464430e1537673.png)
+
+## Contributing
+
+```bash
+xu@calipso$ php-cs-fixer fix ./src/ --dry-run --diff --config-file=".php_cs" # show code style fixes fixes
+xu@calipso$ php-cs-fixer fix ./src/ --config-file=".php_cs" # fix code style
+xu@calipso$ ./vendor/phpunit/phpunit/phpunit tests/ # run tests
+```

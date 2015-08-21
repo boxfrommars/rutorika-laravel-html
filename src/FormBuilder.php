@@ -60,6 +60,28 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $help);
     }
 
+    /**
+     * Code textarea field (Ace redactor will be applied to this field).
+     *
+     * available options:
+     * mode : 'php'
+     * theme: 'monokai'
+     *
+     * @param $title
+     * @param $name
+     * @param null   $value
+     * @param array  $options
+     * @param string $help
+     *
+     * @return string
+     */
+    public function codeField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        $control = $this->code($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
     public function colorField($title, $name, $value = null, $options = array(), $help = '')
     {
         $control = $this->color($name, $value, $this->setDefaultOptions($options));
@@ -74,36 +96,6 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $help);
     }
 
-    /**
-     * Code textarea field (Ace redactor will be applied to this field)
-     *
-     * available options:
-     * mode : 'php'
-     * theme: 'monokai'
-     *
-     * @param $title
-     * @param $name
-     * @param null $value
-     * @param array $options
-     * @param string $help
-     * @return string
-     */
-    public function codeField($title, $name, $value = null, $options = array(), $help = '')
-    {
-        $options = $this->appendClassToOptions('hidden', $this->setDefaultOptions($options));
-        $control = $this->textarea($name, $value, $this->setDefaultOptions($options));
-
-        $attributes = '';
-
-        $mode = !empty($options['mode']) ? $options['mode'] : 'html';
-        $theme = !empty($options['theme']) ? $options['theme'] : 'textmate';
-
-        $attributes .= sprintf('data-mode="%s" data-theme="%s"', $mode, $theme);
-        $control .= sprintf('<div class="ace-editor" %s></div>', $attributes);
-
-        return $this->field($title, $name, $control, $help);
-    }
-
     public function staticField($title, $value, $help = '')
     {
         $name = 'static-' . uniqid();
@@ -112,8 +104,17 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $help);
     }
 
-
     /* INPUTS */
+
+    public function code($name, $value = null, $options = [])
+    {
+        $options = $this->appendClassToOptions('hidden', $options);
+        $options = $this->appendClassToOptions('js-code-field', $options);
+        $options = $this->provideOptionToHtml('mode', $options);
+        $options = $this->provideOptionToHtml('theme', $options);
+
+        return $this->textarea($name, $value, $options) . '<div class="js-code"></div>';
+    }
 
     public function color($name, $value = null, $options = [])
     {
@@ -125,7 +126,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function geopoint($name, $value = null, $options = [])
     {
-        $options = $this->appendClassToOptions('js-map-field', $options);
+        $options = $this->appendClassToOptions('js-geopoint-field', $options);
         $options = $this->provideOptionToHtml('map', $options);
         $options = $this->provideOptionToHtml('layer', $options);
         $options = $this->provideOptionToHtml('type', $options);
@@ -191,7 +192,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     /**
      * @param string $optionName
-     * @param array $options
+     * @param array  $options
      *
      * @return mixed
      */
