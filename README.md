@@ -93,14 +93,13 @@ Form::codeField($title, $name, $value = null, $options = array('mode' => 'html',
 You should [embed Ace to your site](http://ace.c9.io/#nav=embedding) and apply it to textareas with `ace-editor` css class. For example:
 
 ```js
-  $('.ace-editor').each(function(){
+$('.js-code-field').each(function () {
 
-    var $editor = $(this);
-    var editor = ace.edit(this);
-    var $textarea = $editor.siblings('textarea');
+    var $field = $(this);
+    var editor = ace.edit($field.siblings('.js-code').get(0));
 
-    var mode = 'ace/mode/' + $editor.data('mode');
-    var theme = $editor.data('theme');
+    var mode = 'ace/mode/' + $field.data('mode');
+    var theme = $field.data('theme');
 
     editor.getSession().setMode(mode);
 
@@ -108,12 +107,12 @@ You should [embed Ace to your site](http://ace.c9.io/#nav=embedding) and apply i
         editor.setTheme('ace/theme/' + theme);
     }
 
-    editor.getSession().setValue($textarea.val());
+    editor.getSession().setValue($field.val());
 
-    editor.getSession().on('change', function(){
-        $textarea.val(editor.getSession().getValue());
+    editor.getSession().on('change', function () {
+        $field.val(editor.getSession().getValue());
     });
-  });
+});
 ```
 
 #### Color Field
@@ -121,6 +120,9 @@ You should [embed Ace to your site](http://ace.c9.io/#nav=embedding) and apply i
 [Jquery Minicolors](http://labs.abeautifulsite.net/jquery-minicolors/) colorpicker field
 
 ```php
+// as input
+Form::color($name, $value = null, $options = ['minicolors' => ['control' => 'hue']])
+// as field
 Form::colorField($title, $name, $value = null, $options = ['minicolors' => ['control' => 'hue']], $help = '')
 ```
 
@@ -145,7 +147,35 @@ $('.js-color-field').each(function () {
 
 
 #### Geopoint Field
-*@TODO move from rutorika/dashboard*
+
+Allows you to select a point on the map. OSM, Google, Bing and Yandex maps (and all their types) are supported (via [Leaflet](http://leafletjs.com/) and [leaflet-plugins](https://github.com/shramov/leaflet-plugins)).
+
+```php
+// as input
+Form::geopoint($name, $value = null, $options = ['map' => ['center' => [10, 10], 'zoom' => 11], 'layer' => 'yandex', 'type' => 'publicMapHybrid'])
+// as field
+Form::geopointField($title, $name, $value = null, $options = ['map' => ['center' => [10, 10], 'zoom' => 11], 'layer' => 'yandex', 'type' => 'publicMapHybrid'], $help = '')
+```
+
+Field generates string value `latitude:longitude`, e.g. `45.060184073445356:38.96455764770508`
+
+##### Options
+
+- `map` *array* map options passed to Leaflet map constructor. In general you need set center (will be default center of map if no value) and zoom only. [See all available options](http://leafletjs.com/reference.html#map-options)
+- `layer` *string* one of `yandex`, `osm`, `bing`, `google`. default `osm`. Which map provider will be used.
+- `type` *string* type of map. Each provider has his own available map types
+  - `osm`: default `http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`. [Find more](http://leaflet-extras.github.io/leaflet-providers/preview/)
+  - `google`: default `ROADMAP`, available: `ROADMAP`, `SATELLITE`, `HYBRID`, `TERRAIN`. [More info](https://developers.google.com/maps/documentation/javascript/maptypes)
+  - `bing`: default `Road`, available: `Road`, `Aerial`, `AerialWithLabels`, `Birdseye`, `BirdseyeWithLabels`. [More info](https://msdn.microsoft.com/en-us/library/ff701716.aspx)
+  - `yandex`: default `map`, available: `map`, `satellite`, `hybrid`, `publicMap`, `publicMapHybrid`
+
+##### Installation
+
+You should [embed Leaflet](http://leafletjs.com/examples/quick-start.html) (both css and js). If you use provider different from `osm`, you should embed required plugins from [leaflet-plugins](https://github.com/shramov/leaflet-plugins), e.g. `/leaflet-plugins/layer/tile/Google.js`, `/leaflet-plugins/layer/tile/Bing.js` or `/leaflet-plugins/layer/tile/Yandex.js`.
+If you use `google` or `yandex` add their api, e.g. `//maps.google.com/maps/api/js?v=3.2&sensor=false` or `//api-maps.yandex.ru/2.1/?lang=ru_RU`
+
+And apply map to field
+
 #### Image Field
 *@TODO move from rutorika/dashboard*
 #### Image Multiple Field
