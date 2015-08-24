@@ -184,7 +184,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
         $fileField = $this->file(null, []);
 
-        return sprintf($template, $this->urlToFile($fileValue), $fileValue, $fileField) . $this->text($name, $value, $options);
+        return sprintf($template, $this->urlToFile($fileValue), $this->urlToFile($fileValue), $fileField) . $this->text($name, $value, $options);
     }
 
     public function fileUpload($name, $value = null, $options = [])
@@ -213,7 +213,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
         $fileField = $this->file(null, []);
 
-        return sprintf($template, $fileField, $this->urlToFile($fileValue), $fileValue) . $this->text($name, $value, $options);
+        return sprintf($template, $fileField, $this->urlToFile($fileValue), $this->urlToFile($fileValue)) . $this->text($name, $value, $options);
 
     }
 
