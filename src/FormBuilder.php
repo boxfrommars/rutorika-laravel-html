@@ -291,7 +291,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $options;
     }
 
-    public function fileSrc($filename)
+    protected function fileSrc($filename)
     {
         return implode('/', ['', config('rutorika-form.public_storage_path'), $filename]);
     }
