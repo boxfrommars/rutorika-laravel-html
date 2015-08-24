@@ -166,6 +166,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
         $options = $this->provideOptionToHtml('type', $options);
 
         $fileValue = $this->getValueAttribute($name, $value);
+        $fileSrc = $this->fileSrc($fileValue);
 
         $template = '
         <div class="js-upload-container js-upload-image-container">
@@ -184,7 +185,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
         $fileField = $this->file(null, []);
 
-        return sprintf($template, $this->urlToFile($fileValue), $this->urlToFile($fileValue), $fileField) . $this->text($name, $value, $options);
+        return sprintf($template, $fileSrc, $fileSrc, $fileField) . $this->text($name, $value, $options);
     }
 
     public function fileUpload($name, $value = null, $options = [])
@@ -195,6 +196,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
         $options = $this->provideOptionToHtml('type', $options);
 
         $fileValue = $this->getValueAttribute($name, $value);
+        $fileSrc = $this->fileSrc($fileValue);
 
         $template = '
         <div class="js-upload-container js-upload-file-container">
@@ -213,7 +215,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
         $fileField = $this->file(null, []);
 
-        return sprintf($template, $fileField, $this->urlToFile($fileValue), $this->urlToFile($fileValue)) . $this->text($name, $value, $options);
+        return sprintf($template, $fileField, $fileSrc, $fileSrc) . $this->text($name, $value, $options);
 
     }
 
@@ -289,8 +291,8 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $options;
     }
 
-    public function urlToFile($filename)
+    public function fileSrc($filename)
     {
-        return implode('/', ['', 'storage', $filename]);
+        return implode('/', ['', config('rutorika-form.public_storage_path'), $filename]);
     }
 }
