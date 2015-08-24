@@ -34,6 +34,8 @@ class HtmlServiceProvider extends \Collective\Html\HtmlServiceProvider
             __DIR__ . '/rutorika-form.php', 'rutorika-form'
         );
 
+        dd(config('rutorika-form'));
+
         parent::register();
     }
 
