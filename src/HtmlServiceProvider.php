@@ -15,4 +15,27 @@ class HtmlServiceProvider extends \Collective\Html\HtmlServiceProvider
             return $form->setSessionStore($app['session.store']);
         });
     }
+
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__ . '/rutorika-form.php' => config_path('rutorika-form.php'),
+        ]);
+    }
+
+    /**
+     * Register bindings in the container.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/rutorika-form.php', 'rutorika-form'
+        );
+
+        parent::register();
+    }
+
+
 }
