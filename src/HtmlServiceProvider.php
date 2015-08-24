@@ -33,8 +33,7 @@ class HtmlServiceProvider extends \Collective\Html\HtmlServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/rutorika-form.php', 'rutorika-form'
         );
-
-        dd(config('rutorika-form'));
+//        dd(config('rutorika-form'));
 
         parent::register();
     }
