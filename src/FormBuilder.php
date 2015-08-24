@@ -168,7 +168,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
         $fileValue = $this->getValueAttribute($name, $value);
 
         $template = '
-        <div class="media js-upload-container js-upload-image-container">
+        <div class="js-upload-container js-upload-image-container">
             <div class="upload-result-wrap">
                 <a href="%s" class="upload-result"><img src="%s" /></a>
             </div>
@@ -197,7 +197,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
         $fileValue = $this->getValueAttribute($name, $value);
 
         $template = '
-        <div class="media js-upload-container js-upload-file-container">
+        <div class="js-upload-container js-upload-file-container">
             <div class="upload-result-wrap">
                 <p class="form-control-static">
                   <span class="btn btn-default btn-sm fileinput-button">
