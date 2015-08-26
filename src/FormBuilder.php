@@ -139,6 +139,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
     {
         $options = $this->appendClassToOptions('select2', $options);
         $options = $this->provideOptionToHtml('ajax--url', $options);
+        $options['data-value'] = json_encode($selected);
 
         return $this->select($name, $list, $selected, $options);
     }
