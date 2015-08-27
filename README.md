@@ -178,11 +178,47 @@ If you use `google` or `yandex` add their api, e.g. `//maps.google.com/maps/api/
 
 And apply map to field
 
-#### Image Field
-*@TODO move from rutorika/dashboard*
+#### Image && File Field
+
+Allows you to upload files (with [Jquery File Upload](https://github.com/blueimp/jQuery-File-Upload))
+
+```php
+// Image upload
+// as input (note, that this is not ->image() method, which already used as laravelcollective/html method to create img element)
+Form::imageUpload($name, $value = null, $options = [])
+// as field
+Form::imageField($title, $name, $value = null, $options = [], $help = '')
+
+// File upload
+// as input (note, that this is not ->file() method, which already used as laravelcollective/html method to create file input element)
+Form::fileUpload($name, $value = null, $options = [])
+// as field
+Form::fileField($title, $name, $value = null, $options = [], $help = '')
+
+```
+
+##### Options
+
+- `url` url to upload file. Default: `/upload` (You can change default url in rutorika-form config). Should return `['path' => '/public/path/to/file.jpg', 'filename' => 'to/file.jpg']`
+  Where `path` -- path from the public folder (will be setted as src of image) and `filename` -- path to the file from storage path (will be setted as a value of the field)
+- `type` @TODO not used yet
+
+##### Installation
+
+You should implement saving of file on server side or use `\Rutorika\Html\Http\UploadController`, which has simple implementaion of saving files:
+
+```php
+Route::group(['middleware' => 'auth'], function () {
+
+    // ... other admin routes
+
+    route('/upload', '\Rutorika\Html\Http\UploadController@upload')
+});
+```
+
+Set path to the storage folder at `public_storage_path` in the rutorika-form config (the folder in which files are saved, default `storage`)
+
 #### Image Multiple Field
-*@TODO move from rutorika/dashboard*
-#### File Field
 *@TODO move from rutorika/dashboard*
 #### File Multiple Field
 *@TODO move from rutorika/dashboard*

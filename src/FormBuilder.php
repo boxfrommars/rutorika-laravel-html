@@ -177,7 +177,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
     {
         $options = $this->appendClassToOptions('js-uploader-field', $options);
         $options = $this->appendClassToOptions('hidden', $options);
-        $options = $this->provideOptionToHtml('url', $options);
+        $options = $this->provideOptionToHtml('url', $options, config('rutorika-form.default_upload_url'));
         $options = $this->provideOptionToHtml('type', $options);
 
         $fileValue = $this->getValueAttribute($name, $value);
@@ -292,15 +292,19 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     /**
      * @param string $optionName
-     * @param array $options
+     * @param array  $options
+     *
+     * @param null   $defaultValue
      *
      * @return mixed
      */
-    protected function provideOptionToHtml($optionName, $options)
+    protected function provideOptionToHtml($optionName, $options, $defaultValue = null)
     {
         if (isset($options[$optionName])) {
             $options['data-' . $optionName] = is_scalar($options[$optionName]) ? $options[$optionName] : json_encode($options[$optionName]);
             unset($options[$optionName]);
+        } elseif ($defaultValue !== null) {
+            $options['data-' . $optionName] = $defaultValue;
         }
 
         return $options;
