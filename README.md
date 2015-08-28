@@ -223,7 +223,30 @@ Set path to the storage folder at `public_storage_path` in the rutorika-form con
 #### File Multiple Field
 *@TODO move from rutorika/dashboard*
 #### Select2 Field
-*@TODO move from rutorika/dashboard*
+
+[Select2](https://select2.github.io/) field
+
+```php
+// as input
+{!! Form::select2($name, $list = [], $selected = null, $options = []) !!}
+
+// as field
+{!! Form::select2Field($title, $name, $list = [], $selected = null, $options, $help) !!}
+```
+
+##### Options
+
+- `select2`. default `[]` all items of this array will be prepended by data and will be passed to select element. All select params can be configured with `data-`
+  attributes ([all available options](https://select2.github.io/options.html)). Some wide used `select2` options:
+  - `ajax--url` switch select to ajax. data will be requested from this `url` with parameter `q` (query for search). Server should return array `{results: [{id: 1, text: 'Title'}, /* ... */]}`.
+    You can use Trait provided with this package for this purpose.
+- `multiple` attribute works as usual -- switches the select to multiselect
+
+##### Installation
+
+embed [Select2 js and css](https://select2.github.io/) and [Select2 bootstrap theme](https://github.com/select2/select2-bootstrap-theme). Apply select2 to `.select2` elements
+
+
 #### Date Field
 *@TODO move from rutorika/dashboard*
 #### Datetime Field

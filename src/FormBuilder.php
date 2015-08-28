@@ -138,7 +138,13 @@ class FormBuilder extends \Collective\Html\FormBuilder
     public function select2($name, $list = [], $selected = null, $options = [])
     {
         $options = $this->appendClassToOptions('select2', $options);
-        $options = $this->provideOptionToHtml('ajax--url', $options);
+
+        if (isset($options['select2'])) {
+            foreach ($options['select2'] as $key => $value) {
+                $options = $this->addHtmlOption($key, $value, $options);
+            }
+            unset($options['select2']);
+        }
         $options['data-value'] = json_encode($selected);
 
         return $this->select($name, $list, $selected, $options);
@@ -168,7 +174,9 @@ class FormBuilder extends \Collective\Html\FormBuilder
     public function geopoint($name, $value = null, $options = [])
     {
         $options = $this->appendClassToOptions('js-geopoint-field', $options);
-        $options = $this->provideOptionsToHtml(['map', 'layer', 'type'], $options);
+        $options = $this->provideOptionToHtml('map', $options);
+        $options = $this->provideOptionToHtml('layer', $options);
+        $options = $this->provideOptionToHtml('type', $options);
 
         return '<div class="js-map"></div>' . $this->text($name, $value, $options);
     }
@@ -301,7 +309,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
     protected function provideOptionToHtml($optionName, $options, $defaultValue = null)
     {
         if (isset($options[$optionName])) {
-            $options['data-' . $optionName] = is_scalar($options[$optionName]) ? $options[$optionName] : json_encode($options[$optionName]);
+            $options = $this->addHtmlOption($optionName, $options[$optionName], $options);
             unset($options[$optionName]);
         } elseif ($defaultValue !== null) {
             $options['data-' . $optionName] = $defaultValue;
@@ -309,11 +317,9 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
         return $options;
     }
-    protected function provideOptionsToHtml($optionNames, $options)
-    {
-        foreach ($optionNames as $optionName) {
-            $options = $this->provideOptionToHtml($optionName, $options);
-        }
+
+    protected function addHtmlOption($optionName, $optionValue, $options){
+        $options['data-' . $optionName] = is_scalar($optionValue) ? $optionValue : json_encode($optionValue);
 
         return $options;
     }
