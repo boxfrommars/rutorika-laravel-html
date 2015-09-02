@@ -20,7 +20,7 @@ trait Select2ableTrait
 
     public function select2search(Request $request)
     {
-        $searchTerm = $request->get('q');
+        $searchTerm = $request->get('value');
 
         $query = $this->select2query();
         if ($searchTerm) {
