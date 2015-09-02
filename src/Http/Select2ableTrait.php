@@ -34,6 +34,6 @@ trait Select2ableTrait
     {
         $ids = (array) $request->get('id');
 
-        return $this->select2query()->whereIn('id', $ids);
+        return $this->select2query()->whereIn('id', $ids)->get();
     }
 }
