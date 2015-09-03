@@ -25,7 +25,7 @@ trait Select2ableTrait
 
     public function select2search(Request $request)
     {
-        $searchTerm = $request->get('value');
+        $searchTerm = $request->get('q');
 
         $query = $this->select2query();
         if ($searchTerm) {
@@ -37,7 +37,7 @@ trait Select2ableTrait
 
     public function select2searchInit(Request $request)
     {
-        $ids = (array) $request->get('id');
+        $ids = (array) $request->get('ids');
         $query = $this->select2query()->whereIn('id', $ids);
 
         return $this->wrapResult($query->get());
