@@ -18,6 +18,11 @@ trait Select2ableTrait
         return $query->select('id', $this->_select2titleKey . ' as text');
     }
 
+    protected function wrapResult($data)
+    {
+        return ['results' => $data];
+    }
+
     public function select2search(Request $request)
     {
         $searchTerm = $request->get('value');
@@ -27,13 +32,14 @@ trait Select2ableTrait
             $query->where($this->_select2titleKey, 'LIKE', "%" . $searchTerm . "%");
         }
 
-        return $query->get();
+        return $this->wrapResult($query->get());
     }
 
     public function select2searchInit(Request $request)
     {
         $ids = (array) $request->get('id');
+        $query = $this->select2query()->whereIn('id', $ids);
 
-        return $this->select2query()->whereIn('id', $ids)->get();
+        return $this->wrapResult($query->get());
     }
 }
