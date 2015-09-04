@@ -8,7 +8,7 @@ class UploadController extends Controller {
 
     public function upload(Request $request)
     {
-        $file =$request->file('file');
+        $file = $request->file('file');
 
         $filename = static::generateFilename($file);
         $fileDestinationInfo = static::getDestinationInfo($filename, config('rutorika-form.public_storage_path'));

@@ -240,12 +240,129 @@ Set path to the storage folder at `public_storage_path` in the rutorika-form con
   attributes ([all available options](https://select2.github.io/options.html)). Some wide used `select2` options:
   - `ajax--url` switch select to ajax. data will be requested from this `url` with parameter `q` (query for search). Server should return array `{results: [{id: 1, text: 'Title'}, /* ... */]}`.
     You can use Trait provided with this package for this purpose.
-- `multiple` attribute works as usual -- switches the select to multiselect
+- `multiple` attribute works as usual -- switch on multiselect mode
+
+##### Examples
+```php
+// base
+{!! Form::select2Field('Select2', 'select2', [4 => 'Something', 8 => 'Wicked', 15 => 'This', 16 => 'Way', 23 => 'Comes', 42 => '.']) !!}
+// multiple
+{!! Form::select2Field('Select2 Multiple', 'select2-multiple', [4 => 'Something', 8 => 'Wicked', 15 => 'This', 16 => 'Way', 23 => 'Comes', 42 => '.'], [16, 23], ['multiple' => true]) !!}
+
+// async
+{!! Form::select2Field('Select2 Async', 'select2-async', [], 2, ['select2' => ['ajax--url' => '/select2/data']]) !!}
+// async multiple
+{!! Form::select2Field('Select2 Async Multiple', 'select2-async-multiple', [], [2, 3], ['select2' => ['ajax--url' => '/select2/data'], 'multiple' => true]) !!}
+
+// async without fetching selected value from server (already in $list)
+{!! Form::select2Field('Select2 Async Without Init Call', 'select2-async-without-init-call', [5 => 'Speaking from Among the Bones'], 5, ['select2' => ['ajax--url' => '/select2/data']]) !!}
+// async multiple without fetching selected value from server (already in $list)
+{!! Form::select2Field('Select2 Async Multiple Without Init Call', 'select2-async-multiple-without-init-call', [5 => 'Speaking from Among the Bones', 8 => 'Wicked'], [5, 8], ['select2' => ['ajax--url' => '/select2/data'], 'multiple' => true]) !!}
+```
 
 ##### Installation
 
-embed [Select2 js and css](https://select2.github.io/) and [Select2 bootstrap theme](https://github.com/select2/select2-bootstrap-theme). Apply select2 to `.select2` elements
+embed [Select2 js and css](https://select2.github.io/) and [Select2 bootstrap theme](https://github.com/select2/select2-bootstrap-theme). Apply select2 to `.select2` elements:
 
+```js
+$('.select2').each(function () {
+  var $select = $(this);
+
+  var currentValue = $select.val();
+  var value = $select.data('value');
+  var url = $select.data('ajax--url');
+
+  // if async, selected, and no option with selected value exists -- then prefetching selected item from server
+  // and add fetched option to select.
+  if (url && value && !currentValue) {
+    var request = $.ajax({
+      url: url + '/init',
+      data: {
+        ids: value
+      }
+    });
+
+    request.then(function (response) {
+      response.results.forEach(function (result) {
+        var $option = $('<option>')
+          .text(result.text)
+          .attr('value', result.id)
+          .prop('selected', true);
+
+        $select.prepend($option);
+      });
+
+      initSelect2($select);
+    });
+
+  } else {
+    initSelect2($select);
+  }
+
+  function initSelect2($select) {
+    $select.select2({
+      theme: 'bootstrap'
+    });
+  }
+});
+```
+
+If you use async select2, the backend should response on `/your-data-ajax--url?q=searchstring` request with the format:
+
+```js
+{"results":[
+    {"id":"2","text":"Gayle Gislason"},
+    {"id":"78","text":"Keegan Schinner"},
+    {"id":"96","text":"Edgardo Walsh"}
+]}
+```
+
+if you doesn't use asyck without prefetch, your backend should response on  `/your-data-ajax--url/init?ids[]=id1&ids[]=id2` and `/your-data-ajax--url/init?ids=id` requests with the format:
+
+```js
+{"results":[
+    {"id":"id1","text":"Gayle Gislason"},
+    {"id":"id2","text":"Keegan Schinner"},
+]}
+```
+
+> Note! both `?ids[]=id1&ids[]=id2` and `?ids=id` requests should return array of entities!
+
+For this purposes you can use `Select2ableTrait`
+
+##### Select2ableTrait
+
+This trait provide methods for search and prefetch select2 entities.
+
+Add the trait to your controller. Add to your controller `getQuery()` method (see `Select2able` interface for signature).
+This method will be used to get base query. For example if you have published scope, you should add it here.for example:
+
+```php
+/**
+ * @return \Illuminate\Database\Eloquent\Builder
+ */
+protected function getQuery()
+{
+   return YourModel::query()->published();
+}
+```
+
+> If you use rutorika/dashboard, all controllers already has `getQuery()` method
+
+Set the title field of your entity (`title` by default)
+
+```php
+    protected $select2titleKey = 'titlefield';
+```
+
+And add routes to the `select2search` and `select2searchInit` methods
+
+```php
+Route::get('/your-ajax--url', 'Select2Controller@select2search');
+Route::get('/your-ajax--url/init', 'Select2Controller@select2searchInit');
+```
+
+For more settings and overrides see [trait code]()
 
 #### Date Field
 *@TODO move from rutorika/dashboard*

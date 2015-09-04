@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
  */
 trait Select2ableTrait
 {
-    protected $_select2titleKey = 'title';
+    protected $select2titleKey = 'title';
 
     protected function select2query()
     {
         /** @var Builder $query */
         $query = $this->getQuery();
 
-        return $query->select('id', $this->_select2titleKey . ' as text');
+        return $query->select('id', $this->select2titleKey . ' as text');
     }
 
     protected function wrapResult($data)
@@ -29,7 +29,7 @@ trait Select2ableTrait
 
         $query = $this->select2query();
         if ($searchTerm) {
-            $query->where($this->_select2titleKey, 'LIKE', "%" . $searchTerm . "%");
+            $query->where($this->select2titleKey, 'LIKE', "%" . $searchTerm . "%");
         }
 
         return $this->wrapResult($query->get());
