@@ -158,7 +158,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function datetimePicker($name, $value = null, $options = array())
     {
-        $defaultDateTimeOptions = config('rutorika-form.public_storage_path', []);
+        $defaultDateTimeOptions = config('rutorika-form.datetime', []);
 
         $datetimeOptions = array_get($options, 'datetime', []);
         $datetimeOptions = array_merge(['locale' => config('app.locale')], $defaultDateTimeOptions, $datetimeOptions);
