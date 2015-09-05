@@ -14,11 +14,18 @@ class FormBuilder extends \Collective\Html\FormBuilder
     protected $theme;
     protected $themeOptions = [];
 
+    /**
+     * The reserved form open attributes.
+     *
+     * @var array
+     */
+    protected $reserved = ['method', 'url', 'route', 'action', 'files', 'theme'];
+
     public function open(array $options = [])
     {
         $theme = array_get($options, 'theme', config('rutorika-form.theme'));
         \Log::debug($theme);
-        parent::open();
+        return parent::open();
     }
 
     public function textField($title, $name, $value = null, $options = array(), $help = '')
