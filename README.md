@@ -29,6 +29,30 @@ Add service provider and facades to your `config/app.php`
 ]
 ```
 
+Add needed js to your page. You can add all scripts at once:
+
+```html
+<script src="/assets/js/rutorika-form.js"></script>
+```
+> Note. this script doesn't contain Jquery or Bootstrap scripts, you should add they by yourself.
+
+
+Add styles
+
+```
+<script src="/assets/css/rutorika-form.css"></script>
+```
+> Note. this style doesn't contain Bootstrap styles, you should add they by yourself.
+
+If you use map fields differ then osm or bing (google or yandex), you should add scripts for that map api
+
+```
+<script src="//maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+```
+
+> Note. if you installed all script at once with method described above, you shouldnt do any of Installation for each field
+
 ## Usage
 
 This package provides Form::*Fields methods.
@@ -387,16 +411,17 @@ Form::datePicker($title, $name, $value = null, $options = ['datetime' => []], $h
 
 ##### Installation
 
-You should [embed Jquery Minicolors to your site](http://labs.abeautifulsite.net/jquery-minicolors/#download) and apply it to fields:
+You should [add Momentjs](http://labs.abeautifulsite.net/jquery-minicolors/#download) and [Eonasdan Bootstrap 3 Datepicker](http://eonasdan.github.io/bootstrap-datetimepicker/Installing/). And apply datepicker to `.js-datetimepicker`
 
 ```js
-$('.js-color-field').each(function () {
-    var $field = $(this);
-    var settings = $field.data('minicolors');
+$(function () {
+  $('.js-datetimepicker').each(function () {
 
-    settings = $.extend({theme: 'bootstrap'}, settings);
+    var $field = $(this).find('input');
+    var dateOptions = $field.data('datetime');
 
-    $field.minicolors(settings);
+    $(this).datetimepicker(dateOptions);
+  });
 });
 ```
 
