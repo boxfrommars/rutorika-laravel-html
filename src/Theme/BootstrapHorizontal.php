@@ -34,13 +34,7 @@ class BootstrapHorizontal implements Themable
     }
 
     /**
-     * @param            $title
-     * @param            $name
-     * @param string     $control
-     * @param Collection $errors
-     * @param string     $help
-     *
-     * @return string
+     * @inheritdoc
      */
     public function field($title, $name, $control = '', $errors = null, $help = '')
     {
