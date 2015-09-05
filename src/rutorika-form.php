@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'theme' => 'bootstrap-horizontal',
+
     'public_storage_path' => 'storage',
     'default_upload_url' => '/upload',
 

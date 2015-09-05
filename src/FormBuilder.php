@@ -11,6 +11,16 @@ namespace Rutorika\Html;
  */
 class FormBuilder extends \Collective\Html\FormBuilder
 {
+    protected $theme;
+    protected $themeOptions = [];
+
+    public function open(array $options = [])
+    {
+        $theme = array_get($options, 'theme', config('rutorika-form.theme'));
+        \Log::debug($theme);
+        parent::open();
+    }
+
     public function textField($title, $name, $value = null, $options = array(), $help = '')
     {
         $control = $this->text($name, $value, $this->setDefaultOptions($options));
