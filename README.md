@@ -218,10 +218,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 Set path to the storage folder at `public_storage_path` in the rutorika-form config (the folder in which files are saved, default `storage`)
 
-#### Image Multiple Field
-*@TODO move from rutorika/dashboard*
-#### File Multiple Field
-*@TODO move from rutorika/dashboard*
+> @TODO: Note that `\Rutorika\Html\Http\UploadController` doesn't have any validation, you shoul implement it if you need.
+
 #### Select2 Field
 
 [Select2](https://select2.github.io/) field
@@ -362,13 +360,51 @@ Route::get('/your-ajax--url', 'Select2Controller@select2search');
 Route::get('/your-ajax--url/init', 'Select2Controller@select2searchInit');
 ```
 
-For more settings and overrides see [trait code]()
+For more settings and overrides see [trait code](/src/Http/Select2ableTrait.php)
 
-#### Date Field
+
+#### Date, Datetime and Time Fields
+
+Datetime field. [Eonasdan Bootstrap 3 Datepicker](https://eonasdan.github.io/bootstrap-datetimepicker/) used.
+
+```php
+// as field
+Form::datetimeField($title, $name, $value = null, $options = ['datetime' => []], $help = '')
+Form::dateField($title, $name, $value = null, $options = ['datetime' => []], $help = '')
+Form::timeField($title, $name, $value = null, $options = ['datetime' => []], $help = '')
+
+// as input
+Form::datePicker($title, $name, $value = null, $options = ['datetime' => []], $help = '')
+```
+
+##### Options
+
+* `datetime`, []. All this settings will be passed to datetimepicker options. [See all available options](https://eonasdan.github.io/bootstrap-datetimepicker/Options/).
+   e.g.: ['datetime' => ['locale' => 'ru', 'sideBySide' => true]]
+
+> Note. You can set default datetimepicker options at rutorika-form.php congig.
+
+> Note. By default datetimepicker use locale from your app locale (see config/app.php).
+
+##### Installation
+
+You should [embed Jquery Minicolors to your site](http://labs.abeautifulsite.net/jquery-minicolors/#download) and apply it to fields:
+
+```js
+$('.js-color-field').each(function () {
+    var $field = $(this);
+    var settings = $field.data('minicolors');
+
+    settings = $.extend({theme: 'bootstrap'}, settings);
+
+    $field.minicolors(settings);
+});
+```
+
+
+#### Image Multiple Field
 *@TODO move from rutorika/dashboard*
-#### Datetime Field
-*@TODO move from rutorika/dashboard*
-#### Time Field
+#### File Multiple Field
 *@TODO move from rutorika/dashboard*
 
 ### Helper methods
