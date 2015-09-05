@@ -137,12 +137,12 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function datetimeField($title, $name, $value = null, $options = array(), $help = '')
     {
-        $control = $this->datetime($name, $value, $this->setDefaultOptions($options));
+        $control = $this->datetimePicker($name, $value, $this->setDefaultOptions($options));
 
         return $this->field($title, $name, $control, $help);
     }
 
-    public function datetime($name, $value = null, $options = array())
+    public function datetimePicker($name, $value = null, $options = array())
     {
         $options = $this->provideOptionToHtml('datetime', $options);
         $template = '
@@ -153,6 +153,13 @@ class FormBuilder extends \Collective\Html\FormBuilder
             </span>
         </div>';
         return sprintf($template, $this->text($name, $value, $options));
+    }
+
+    public function datePicker($name, $value = null, $options = array())
+    {
+        $options = array_set($options, 'datetime.format', 'L');
+
+        return $this->datetimePicker($name, $value, $options);
     }
 
     public function select2($name, $list = [], $selected = null, $options = [])
