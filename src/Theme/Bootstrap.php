@@ -36,7 +36,7 @@ class Bootstrap implements Themable
         ';
 
         $formClass = !empty($errors) && $errors->has($name) ? 'has-error' : '';
-        $label = $this->builder->label($name, $title);
+        $label = is_null($title) ? $this->builder->label($name, $title) : '';
         $error = empty($errors) ? '' : $errors->first($name, '<p class="help-block">:message</p>');
         $help = empty($help) ? '' : '<p class="help-block">' . $help . '</p>';
 

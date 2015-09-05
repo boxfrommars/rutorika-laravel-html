@@ -50,7 +50,14 @@ class BootstrapHorizontal implements Themable
         ';
 
         $formClass = !empty($errors) && $errors->has($name) ? 'has-error' : '';
-        $label = $this->builder->label($name, $title, ['class' => "col-md-{$this->labelWidth} control-label"]);
+        $labelClass = "col-md-{$this->labelWidth} control-label";
+
+        if (!is_null($title)) {
+            $label = $this->builder->label($name, $title, ['class' => $labelClass]);
+        } else {
+            $label = '<div class="' . $labelClass . '"></div>';
+        }
+
         $controlClass = "col-md-{$this->controlWidth}";
         $error = empty($errors) ? '' : $errors->first($name, '<p class="help-block">:message</p>');
         $help = empty($help) ? '' : '<p class="help-block">' . $help . '</p>';

@@ -342,18 +342,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function submitField($title = 'Submit')
     {
-        $offsetWidth = 3;
-        $controlWidth = 9;
-
-        $template = '
-            <div class="form-group">
-              <div class="%s %s">
-                <button type="submit" class="btn btn-primary">%s</button>
-              </div>
-            </div>
-        ';
-
-        return sprintf($template, 'col-sm-offset-' . $offsetWidth, 'col-md-' . $controlWidth, $title);
+        return $this->field(null, null, '<button type="submit" class="btn btn-primary">' . $title . '</button>');
     }
 
     protected function setDefaultOptions($options)
