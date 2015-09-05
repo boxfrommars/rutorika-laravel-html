@@ -149,6 +149,13 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $help);
     }
 
+    public function timeField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        $control = $this->timePicker($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
     public function datetimePicker($name, $value = null, $options = array())
     {
         $options = $this->provideOptionToHtml('datetime', $options);
@@ -164,7 +171,20 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function datePicker($name, $value = null, $options = array())
     {
-        $options = array_set($options, 'datetime.format', 'L');
+        $datetimeOptions = array_get($options, 'datetime', []);
+        $datetimeOptions = array_merge(['format' => 'L'], $datetimeOptions);
+
+        $options['datetime'] = $datetimeOptions;
+
+        return $this->datetimePicker($name, $value, $options);
+    }
+
+    public function timePicker($name, $value = null, $options = array())
+    {
+        $datetimeOptions = array_get($options, 'datetime', []);
+        $datetimeOptions = array_merge(['format' => 'LT'], $datetimeOptions);
+
+        $options['datetime'] = $datetimeOptions;
 
         return $this->datetimePicker($name, $value, $options);
     }
