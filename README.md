@@ -379,12 +379,11 @@ Form::datePicker($title, $name, $value = null, $options = ['datetime' => []], $h
 
 ##### Options
 
-* `datetime`, []. All this settings will be passed to datetimepicker options. [See all available options](https://eonasdan.github.io/bootstrap-datetimepicker/Options/).
-   e.g.: ['datetime' => ['locale' => 'ru', 'sideBySide' => true]]
+* `datetime`, []. All this settings will be passed to datetimepicker options. E.g.: `['datetime' => ['locale' => 'ru', 'sideBySide' => true]]`. [See all available options](https://eonasdan.github.io/bootstrap-datetimepicker/Options/).
 
-> Note. You can set default datetimepicker options at rutorika-form.php congig.
+> Note. You can set default datetimepicker options at `rutorika-form.php` config.
 
-> Note. By default datetimepicker use locale from your app locale (see config/app.php).
+> Note. By default datetimepicker use locale from your app locale (see `config/app.php`).
 
 ##### Installation
 
