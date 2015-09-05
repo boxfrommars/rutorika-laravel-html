@@ -1,6 +1,8 @@
 <?php
 
 namespace Rutorika\Html;
+use Rutorika\Html\Theme\HorizontalBootstrap;
+use Rutorika\Html\Theme\Themable;
 
 /**
  * Form builder, provides *Field methods for twitter bootstrap forms.
@@ -11,8 +13,10 @@ namespace Rutorika\Html;
  */
 class FormBuilder extends \Collective\Html\FormBuilder
 {
+    /**
+     * @var Themable
+     */
     protected $theme;
-    protected $themeOptions = [];
 
     /**
      * The reserved form open attributes.
@@ -21,11 +25,19 @@ class FormBuilder extends \Collective\Html\FormBuilder
      */
     protected $reserved = ['method', 'url', 'route', 'action', 'files', 'theme'];
 
+    /**
+     * @param array $options
+     *
+     * @return string
+     */
     public function open(array $options = [])
     {
-        $theme = array_get($options, 'theme', config('rutorika-form.theme'));
-        \Log::debug($theme);
-        return parent::open();
+//        $theme = array_get($options, 'theme', config('rutorika-form.theme'));
+
+        $this->theme = new HorizontalBootstrap($this);
+        $options = $this->theme->updateOptions($options);
+
+        return parent::open($options);
     }
 
     public function textField($title, $name, $value = null, $options = array(), $help = '')
@@ -324,27 +336,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
     {
         $errors = $this->session ? $this->session->get('errors') : null;
 
-        $labelWidth = 3;
-        $controlWidth = 9;
-
-        $template = '
-            <div class="form-group %s">
-              %s
-              <div class="%s">
-                %s
-                %s
-                %s
-              </div>
-            </div>
-        ';
-
-        $formClass = !empty($errors) && $errors->has($name) ? 'has-error' : '';
-        $label = $this->label($name, $title, ['class' => "col-md-{$labelWidth} control-label"]);
-        $controlClass = 'col-md-' . $controlWidth;
-        $error = empty($errors) ? '' : $errors->first($name, '<p class="help-block">:message</p>');
-        $help = empty($help) ? '' : '<p class="help-block">' . $help . '</p>';
-
-        return sprintf($template, $formClass, $label, $controlClass, $control, $error, $help);
+        return $this->theme->field($title, $name, $control, $errors, $help);
     }
 
     public function submitField($title = 'Submit')
