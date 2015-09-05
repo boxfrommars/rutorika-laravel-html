@@ -144,7 +144,14 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function datetime($name, $value = null, $options = array())
     {
-        return $this->text($name, $value, $options);
+        $template = '
+        <div class="input-group date datetimepicker">
+            %s
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>';
+        return sprintf($template, $this->text($name, $value, $options));
     }
 
     public function select2($name, $list = [], $selected = null, $options = [])
