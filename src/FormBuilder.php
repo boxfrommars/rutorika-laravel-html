@@ -135,6 +135,18 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $help);
     }
 
+    public function datetimeField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        $control = $this->datetime($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
+    public function datetime($name, $value = null, $options = array())
+    {
+        return $this->text($name, $value, $options);
+    }
+
     public function select2($name, $list = [], $selected = null, $options = [])
     {
         $options = $this->appendClassToOptions('select2', $options);
