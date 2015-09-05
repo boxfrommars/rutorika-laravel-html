@@ -158,6 +158,11 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function datetimePicker($name, $value = null, $options = array())
     {
+        $datetimeOptions = array_get($options, 'datetime', []);
+        $datetimeOptions = array_merge(['locale' => config('app.locale')], $datetimeOptions);
+
+        $options['datetime'] = $datetimeOptions;
+
         $options = $this->provideOptionToHtml('datetime', $options);
         $template = '
         <div class="input-group date js-datetimepicker">
