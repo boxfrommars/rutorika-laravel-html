@@ -142,6 +142,13 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $help);
     }
 
+    public function dateField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        $control = $this->datePicker($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
     public function datetimePicker($name, $value = null, $options = array())
     {
         $options = $this->provideOptionToHtml('datetime', $options);
