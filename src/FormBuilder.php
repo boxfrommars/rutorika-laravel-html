@@ -32,9 +32,10 @@ class FormBuilder extends \Collective\Html\FormBuilder
      */
     public function open(array $options = [])
     {
-//        $theme = array_get($options, 'theme', config('rutorika-form.theme'));
+        $themeName = array_get($options, 'theme', config('rutorika-form.theme'));
+        $themeClass = config('rutorika-form.themes.' . $themeName);
 
-        $this->theme = new HorizontalBootstrap($this);
+        $this->theme = new $themeClass($this);
         $options = $this->theme->updateOptions($options);
 
         return parent::open($options);

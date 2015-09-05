@@ -3,10 +3,9 @@
 namespace Rutorika\Html\Theme;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\ViewErrorBag;
 use Rutorika\Html\FormBuilder;
 
-class HorizontalBootstrap implements Themable
+class BootstrapHorizontal implements Themable
 {
     /**
      * @var FormBuilder
