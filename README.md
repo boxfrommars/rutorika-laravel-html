@@ -2,9 +2,12 @@
 
 Simple way to create forms
 
+- [View demo](http://laravel-html.boxfrommars.ru/)
+- [demo repository](https://github.com/boxfrommars/demo-rutorika-laravel-html)
+
 Custom form controls and shorthand methods for form rows (both vertical and horizontal forms supported):
 
-Form fields: [View demo](http://laravel-html.boxfrommars.ru/), [demo repository](https://github.com/boxfrommars/demo-rutorika-laravel-html)
+Form fields:
 
 ```php
 {!! Form::open() !!}
