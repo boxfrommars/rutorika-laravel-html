@@ -67,6 +67,23 @@ Tested with Twitter Bootstrap >= 3.3.0
 
 ## Install
 
+While this package is in beta you should install it from github:
+
+```json
+    "require": {
+        // ...
+        "rutorika/laravel-html": "dev-master",
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/boxfrommars/rutorika-laravel-html"
+        }
+    ]
+```
+
+"rutorika/laravel-html": "dev-master",
+
 Install package through composer
 
 ```bash
