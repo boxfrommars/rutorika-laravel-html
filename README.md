@@ -4,7 +4,7 @@ Simple way to create forms
 
 Custom form controls and shorthand methods for form rows (both vertical and horizontal forms supported):
 
-Form fields: [View demo]()
+Form fields: [View demo](http://laravel-html.boxfrommars.ru/), [demo repository](https://github.com/boxfrommars/demo-rutorika-laravel-html)
 
 ```php
 {!! Form::open() !!}
