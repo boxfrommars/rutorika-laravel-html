@@ -179,32 +179,30 @@ Form::close();
 
 ### Custom controls
 
- - [code](#Code Field)
- - [color](#Color Field)
- - [geopoint](#Geopoint Field)
- - [imageUpload](#Image && File Field)
- - [fileUpload](#Image && File Field)
- - [select2](#Select2 Field)
- - [date](#Date, Datetime and Time Fields)
- - [datetime](#Date, Datetime and Time Fields)
- - [time](#Date, Datetime and Time Fields)
+ - [code](#code-field)
+ - [color](#color-field)
+ - [geopoint](#geopoint-field)
+ - [imageUpload](#image--file-field)
+ - [fileUpload](#image--file-field)
+ - [select2](#select2-field)
+ - [date](#date-datetime-and-time-fields)
+ - [datetime](#date-datetime-and-time-fields)
+ - [time](#date-datetime-and-time-fields)
 
 Documentation for each of this controls see in Custom Form fields section
 
 ### Fields
 
 Fields are wrappers to controls that provide shorthand methods to create form rows.
-Example:
-
-This package provides Form::*Fields methods.
-First argument for this methods is `$title` which wil be set as label of the field.
-Next arguments are the same as arguments in original * method.
+Field method looks like Form::{ControlName}Fields($title, [/* original control options */], $help = '').
+First argument for this methods is `$title` which will be set as label of the field.
+Next arguments are the same as arguments in original control method.
 The last argument is `$help` which will be set as help text under the input.
 
 For example:
 
 ```php
-Form::textField($title,  $name, $value = null, $options = [], $help = '') // because Form::title($name, $value = null, $options = [])
+Form::textField($title,  $name, $value = null, $options = [], $help = '') // because Form::text($name, $value = null, $options = [])
 ```
 
 so
