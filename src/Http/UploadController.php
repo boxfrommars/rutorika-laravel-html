@@ -11,6 +11,8 @@ class UploadController extends Controller {
 
     public function upload(Request $request)
     {
+        \Log::debug($request->all());
+
         $this->validate($request, [
             'file' => 'image'
         ]);
