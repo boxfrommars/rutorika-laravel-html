@@ -335,7 +335,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function field($title, $name, $control = '', $help = '')
     {
-        $errors = $this->session ? $this->session->get('errors') : null;
+        $errors = $name && $this->session ? $this->session->get('errors') : null;
 
         return $this->theme->field($title, $name, $control, $errors, $help);
     }
