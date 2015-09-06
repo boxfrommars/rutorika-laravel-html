@@ -3,6 +3,7 @@
  - Add `type` param to a file upload request
  - Add `type` configuration (?)
  - File upload validation (in `UploadController`) based on `type` and configuration rules (use mime, image...)
+ - Add method to add custom error handlers
  - File upload manipulation based on `type` (e.g. resize, crop and else) (?)
 
 May be move all `type`-depending logic to the separate package and leave included controller simple?
