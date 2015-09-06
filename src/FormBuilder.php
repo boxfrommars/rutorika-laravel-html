@@ -148,7 +148,9 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function audioField($title, $name, $value = null, $options = array(), $help = '')
     {
-        return $this->imageUploadField($title, $name, $value, $options, $help);
+        $control = $this->audioUpload($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
     }
 
     public function fileField($title, $name, $value = null, $options = array(), $help = '')
