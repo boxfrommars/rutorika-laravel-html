@@ -223,7 +223,7 @@ $(document).ready(function(){
       },
 
       fail: function (e, data) {
-        console.error(data);
+        console.error('Whooooops', e, data);
       }
     })
   });
