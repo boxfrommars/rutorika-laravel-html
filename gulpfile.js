@@ -36,6 +36,7 @@ var vendorStyles = [
 
   'jquery-minicolors-2.1.12/jquery.minicolors.css', // file
   'select2/css/select2.css',
+  'select2/css/select2-bootstrap.min.css',
   'magnific-popup/magnific-popup.css',
 
   'leaflet-0.7.5/leaflet.css'
