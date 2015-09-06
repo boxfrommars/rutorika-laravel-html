@@ -5,7 +5,7 @@ return [
 
     'themes' => [
         'bootstrap-horizontal' => '\Rutorika\Html\Theme\BootstrapHorizontal',
-        'bootstrap' => '\Rutorika\Html\Theme\Bootstrap',
+        'bootstrap-vertical' => '\Rutorika\Html\Theme\Bootstrap',
     ],
 
     'public_storage_path' => 'storage',
