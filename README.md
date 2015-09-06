@@ -194,17 +194,15 @@ Documentation for each of this controls see in Custom Form fields section
 ### Fields
 
 Fields are wrappers to controls that provide shorthand methods to create form rows.
-Example:
-
-This package provides Form::*Fields methods.
-First argument for this methods is `$title` which wil be set as label of the field.
-Next arguments are the same as arguments in original * method.
+Field method looks like Form::{ControlName}Fields($title, [/* original control options */], $help = '').
+First argument for this methods is `$title` which will be set as label of the field.
+Next arguments are the same as arguments in original control method.
 The last argument is `$help` which will be set as help text under the input.
 
 For example:
 
 ```php
-Form::textField($title,  $name, $value = null, $options = [], $help = '') // because Form::title($name, $value = null, $options = [])
+Form::textField($title,  $name, $value = null, $options = [], $help = '') // because Form::text($name, $value = null, $options = [])
 ```
 
 so
