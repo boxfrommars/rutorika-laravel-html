@@ -1,6 +1,5 @@
 $(document).ready(function () {
-
-  // map
+  
   function parsePoint(value) {
     return value ? value.split(':') : null;
   }
