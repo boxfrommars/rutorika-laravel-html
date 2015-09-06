@@ -19,6 +19,7 @@ May be move all `type`-depending logic to the separate package and leave include
 
 #### Other
  - multiplicator. Allow every field (->text() based) be multiple. to think about divider escaping (?)
+ - Configurable default geopoint options
 
 
 
