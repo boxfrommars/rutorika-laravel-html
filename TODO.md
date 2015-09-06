@@ -5,8 +5,9 @@
  - File upload validation (in `UploadController`) based on `type` and configuration rules (use mime, image...)
  - Add method to add custom error handlers
  - File upload manipulation based on `type` (e.g. resize, crop and else) (?)
+ - Empty image icon
 
-May be move all `type`-depending logic to the separate package and leave included controller simple?
+May be move all the `type`-depending logic to the separate package and leave the included one simple as possible?
 
 #### Theming
  - Move all Bootstrap-related stuff from FormBuilder to themes and add Foundation theme (?)
@@ -20,4 +21,3 @@ May be move all `type`-depending logic to the separate package and leave include
 #### Other
  - multiplicator. Allow every field (->text() based) be multiple. to think about divider escaping (?)
  - Configurable default geopoint options
- - Rename `bootstrap` theme to `bootstrap-vertical`
