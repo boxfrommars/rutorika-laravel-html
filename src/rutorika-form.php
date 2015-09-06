@@ -21,7 +21,7 @@ return [
             'image' => [
                 'rules' => 'required|image|max:3072'
             ],
-            'doc' => [
+            'document' => [
                 'rules' => 'required|mimes:doc,pdf,docs,txt'
             ],
             'audio' => [
