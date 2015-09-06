@@ -303,7 +303,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
     public function audioUpload($name, $value = null, $options = [])
     {
         $template = '
-        <div class="rk-upload-container rk-upload-image-container">
+        <div class="rk-upload-container rk-upload-audio-container">
             <div class="rk-upload-result-wrap">
                 <a href="{fileSrc}" class="rk-upload-result"><audio src="{fileSrc}"></audio></a>
             </div>

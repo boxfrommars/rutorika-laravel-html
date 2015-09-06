@@ -247,6 +247,14 @@ $(document).ready(function(){
       $(this).find('.rk-upload-result img').attr('src', '');
     });
 
+  $('.rk-upload-audio-container')
+    .on('uploaded', function (e, result) {
+      $(this).find('.rk-upload-result audio').attr('src', result.path);
+    })
+    .on('removed', function () {
+      $(this).find('.rk-upload-result audio').attr('src', '');
+    });
+
   $('.rk-upload-file-container')
     .on('uploaded', function (e, result) {
       $(this).find('.rk-upload-result').text(result.filename);
