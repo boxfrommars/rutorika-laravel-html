@@ -47,49 +47,55 @@ gulp.task('default', ['build']);
 
 
 gulp.task('clean', function () {
+
   return gulp.src(buildPath, {read: false})
     .pipe(clean())
     .on('error', gutil.log);
 });
 
 gulp.task('build', ['clean'], function() {
-  console.log('build');
 
   gulp.src(vendorScripts)
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest(buildPath))
+    .pipe(gulp.dest(buildPath + 'js/'))
     .pipe(uglify())
     .pipe(rename('vendor.min.js'))
-    .pipe(gulp.dest(buildPath))
+    .pipe(gulp.dest(buildPath + 'js/'))
     .on('error', gutil.log);
 
   gulp.src('./src/assets/js/*')
     .pipe(concat('scripts.js'))
-    .pipe(gulp.dest(buildPath))
+    .pipe(gulp.dest(buildPath + 'js/'))
     .pipe(uglify())
     .pipe(rename('scripts.min.js'))
-    .pipe(gulp.dest(buildPath))
+    .pipe(gulp.dest(buildPath + 'js/'))
     .on('error', gutil.log);
 
   gulp.src(vendorStyles)
     .pipe(concat('vendor.css'))
-    .pipe(gulp.dest(buildPath))
+    .pipe(gulp.dest(buildPath + 'css/'))
     .pipe(minifyCss())
     .pipe(rename('vendor.min.css'))
-    .pipe(gulp.dest(buildPath))
+    .pipe(gulp.dest(buildPath + 'css/'))
     .on('error', gutil.log);
 
   gulp.src('./src/assets/css/*')
     .pipe(concat('style.css'))
-    .pipe(gulp.dest(buildPath))
+    .pipe(gulp.dest(buildPath + 'css/'))
     .pipe(minifyCss())
     .pipe(rename('style.min.css'))
-    .pipe(gulp.dest(buildPath))
+    .pipe(gulp.dest(buildPath + 'css/'))
     .on('error', gutil.log);
 
+  gulp.src('./src/assets/img/*')
+    .pipe(gulp.dest(buildPath + 'img/'))
+    .on('error', gutil.log);
+
+
+
   gulp.src(vendorPath + '/jquery-minicolors-2.1.12/jquery.minicolors.png')
-    .pipe(gulp.dest(buildPath));
+    .pipe(gulp.dest(buildPath + 'css/'));
 
   gulp.src(vendorPath + '/leaflet-0.7.5/images/*')
-    .pipe(gulp.dest(buildPath + 'image/'));
+    .pipe(gulp.dest(buildPath + 'css/image/'));
 });
