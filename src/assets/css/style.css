@@ -36,3 +36,8 @@
     width: 100%;
     height:400px;
 }
+
+/* fix map controls over datetimepicker */
+.bootstrap-datetimepicker-widget {
+    z-index: 1001;
+}
