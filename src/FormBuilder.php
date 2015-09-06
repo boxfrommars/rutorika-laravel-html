@@ -3,6 +3,7 @@
 namespace Rutorika\Html;
 use Rutorika\Html\Theme\HorizontalBootstrap;
 use Rutorika\Html\Theme\Themable;
+use StringTemplate\Engine;
 
 /**
  * Form builder, provides *Field methods for twitter bootstrap forms.
@@ -145,6 +146,11 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->imageUploadField($title, $name, $value, $options, $help);
     }
 
+    public function audioField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        return $this->imageUploadField($title, $name, $value, $options, $help);
+    }
+
     public function fileField($title, $name, $value = null, $options = array(), $help = '')
     {
         return $this->fileUploadField($title, $name, $value, $options, $help);
@@ -274,22 +280,14 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function imageUpload($name, $value = null, $options = [])
     {
-        $options = $this->appendClassToOptions('rk-uploader-field', $options);
-        $options = $this->appendClassToOptions('hidden', $options);
-        $options = $this->provideOptionToHtml('url', $options, config('rutorika-form.default_upload_url'));
-        $options = $this->provideOptionToHtml('type', $options);
-
-        $fileValue = $this->getValueAttribute($name, $value);
-        $fileSrc = $this->fileSrc($fileValue);
-
         $template = '
         <div class="rk-upload-container rk-upload-image-container">
             <div class="rk-upload-result-wrap">
-                <a href="%s" class="rk-upload-result"><img src="%s" /></a>
+                <a href="{fileSrc}" class="rk-upload-result"><img src="{fileSrc}" /></a>
             </div>
             <div>
                 <span class="btn btn-default btn-sm fileinput-button">
-                  <i class="glyphicon glyphicon-picture"></i>%s
+                  <i class="glyphicon glyphicon-picture"></i>{fileField}
                 </span><!--
                 --><span class="btn btn-default btn-sm rk-upload-remove">
                   <i class="glyphicon glyphicon-remove"></i>
@@ -297,12 +295,50 @@ class FormBuilder extends \Collective\Html\FormBuilder
             </div>
         </div>';
 
-        $fileField = $this->file(null, []);
+        return $this->upload($template, $name, $value, $options);
+    }
 
-        return sprintf($template, $fileSrc, $fileSrc, $fileField) . $this->text($name, $value, $options);
+    public function audioUpload($name, $value = null, $options = [])
+    {
+        $template = '
+        <div class="rk-upload-container rk-upload-image-container">
+            <div class="rk-upload-result-wrap">
+                <a href="{fileSrc}" class="rk-upload-result"><audio src="{fileSrc}"></audio></a>
+            </div>
+            <div>
+                <span class="btn btn-default btn-sm fileinput-button">
+                  <i class="glyphicon glyphicon-picture"></i>{fileField}
+                </span><!--
+                --><span class="btn btn-default btn-sm rk-upload-remove">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </span>
+            </div>
+        </div>';
+
+        return $this->upload($template, $name, $value, $options);
     }
 
     public function fileUpload($name, $value = null, $options = [])
+    {
+        $template = '
+        <div class="rk-upload-container rk-upload-file-container">
+            <div class="rk-upload-result-wrap">
+                <p class="form-control-static">
+                  <span class="btn btn-default btn-sm fileinput-button">
+                  <i class="glyphicon glyphicon-picture"></i>{fileField}
+                    </span><!--
+                    --><span class="btn btn-default btn-sm rk-upload-remove">
+                      <i class="glyphicon glyphicon-remove"></i>
+                    </span><!--
+                    --><a href="{fileSrc}" target="_blank" class="rk-upload-result">{fileSrc}</a>
+                </p>
+            </div>
+        </div>';
+
+        return $this->upload($template, $name, $value, $options);
+    }
+
+    public function upload($template, $name, $value = null, $options = [])
     {
         $options = $this->appendClassToOptions('rk-uploader-field', $options);
         $options = $this->appendClassToOptions('hidden', $options);
@@ -310,27 +346,13 @@ class FormBuilder extends \Collective\Html\FormBuilder
         $options = $this->provideOptionToHtml('type', $options);
 
         $fileValue = $this->getValueAttribute($name, $value);
-        $fileSrc = $this->fileSrc($fileValue);
 
-        $template = '
-        <div class="rk-upload-container rk-upload-file-container">
-            <div class="rk-upload-result-wrap">
-                <p class="form-control-static">
-                  <span class="btn btn-default btn-sm fileinput-button">
-                  <i class="glyphicon glyphicon-picture"></i>%s
-                    </span><!--
-                    --><span class="btn btn-default btn-sm rk-upload-remove">
-                      <i class="glyphicon glyphicon-remove"></i>
-                    </span><!--
-                    --><a href="%s" target="_blank" class="rk-upload-result">%s</a>
-                </p>
-            </div>
-        </div>';
+        $templateEngine = new Engine();
 
-        $fileField = $this->file(null, []);
-
-        return sprintf($template, $fileField, $fileSrc, $fileSrc) . $this->text($name, $value, $options);
-
+        return $templateEngine->render($template, [
+            'fileSrc' => $this->fileSrc($fileValue),
+            'fileField' => $this->file(null, [])
+        ]) . $this->text($name, $value, $options);
     }
 
     public function field($title, $name, $control = '', $help = '')
