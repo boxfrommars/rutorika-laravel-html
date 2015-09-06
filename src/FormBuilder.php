@@ -305,7 +305,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
         $template = '
         <div class="rk-upload-container rk-upload-audio-container">
             <div class="rk-upload-result-wrap">
-                <a href="{fileSrc}" class="rk-upload-result"><audio src="{fileSrc}"></audio></a>
+                <a href="{fileSrc}" class="rk-upload-result"><audio src="{fileSrc}" controls></audio></a>
             </div>
             <div>
                 <span class="btn btn-default btn-sm fileinput-button">
