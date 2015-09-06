@@ -16,7 +16,7 @@ var vendorScripts = [
 
   'bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js',
   'jQuery-File-Upload-9.11.0/js/jquery.iframe-transport.js',
-  'jQuery-File-Upload-9.11.0/jquery.fileupload.js',
+  'jQuery-File-Upload-9.11.0/js/jquery.fileupload.js',
   'jquery-minicolors-2.1.12/jquery.minicolors.js',
   'select2/js/select2.js',
   'magnific-popup/jquery.magnific-popup.js',
