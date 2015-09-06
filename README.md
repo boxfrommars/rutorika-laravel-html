@@ -469,11 +469,6 @@ Form::datePicker($title, $name, $value = null, $options = ['datetime' => []], $h
 > Note. By default datetimepicker use locale from your app locale (see `config/app.php`).
 
 
-#### Image Multiple Field
-*@TODO move from rutorika/dashboard*
-#### File Multiple Field
-*@TODO move from rutorika/dashboard*
-
 ### Helper methods
 
 #### Submit button

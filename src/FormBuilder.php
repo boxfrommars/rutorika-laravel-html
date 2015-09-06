@@ -197,7 +197,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
         $options = $this->provideOptionToHtml('datetime', $options);
         $template = '
-        <div class="input-group date js-datetimepicker">
+        <div class="input-group date rk-datetimepicker">
             %s
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span>
