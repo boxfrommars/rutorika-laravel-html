@@ -93,11 +93,7 @@ gulp.task('build', ['clean'], function() {
     .pipe(gulp.dest(buildPath + 'img/'))
     .on('error', gutil.log);
 
-
-
+  
   gulp.src(vendorPath + '/jquery-minicolors-2.1.12/jquery.minicolors.png')
     .pipe(gulp.dest(buildPath + 'css/'));
-
-  gulp.src(vendorPath + '/leaflet-0.7.5/images/*')
-    .pipe(gulp.dest(buildPath + 'css/image/'));
 });

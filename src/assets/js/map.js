@@ -1,3 +1,5 @@
+L.Icon.Default.imagePath = '/vendor/rutorika/form/vendor/leaflet-0.7.5/images';
+
 $(document).ready(function () {
 
   function parsePoint(value) {
