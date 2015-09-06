@@ -12,10 +12,11 @@ $(document).ready(function () {
     var pointMarker;
 
     var layerName = $field.data('layer') || 'osm';
-    var options = _.defaults($field.data('map') || {}, {
+
+    var options = $.extend({
       center: [51.476852, -0.000498],
       zoom: 12
-    });
+    }, $field.data('map') || {});
 
     var point = parsePoint($field.val());
 
@@ -56,7 +57,7 @@ $(document).ready(function () {
     function getLayerType(layerName, variants, defaultType) {
       var type = $field.data('type') || defaultType;
 
-      if (!_.contains(variants, type)) {
+      if (variants.indexOf(type) < 0) {
         console.warn(layerName + ' doesnt support `' + type + '` type. Only ' + variants.join(' | ') + '. Fallback to ' + defaultType);
         type = defaultType;
       }
