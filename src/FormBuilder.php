@@ -228,7 +228,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function select2($name, $list = [], $selected = null, $options = [])
     {
-        $options = $this->appendClassToOptions('select2', $options);
+        $options = $this->appendClassToOptions('rk-select2', $options);
 
         if (isset($options['select2'])) {
             foreach ($options['select2'] as $key => $value) {
@@ -247,16 +247,16 @@ class FormBuilder extends \Collective\Html\FormBuilder
     public function code($name, $value = null, $options = [])
     {
         $options = $this->appendClassToOptions('hidden', $options);
-        $options = $this->appendClassToOptions('js-code-field', $options);
+        $options = $this->appendClassToOptions('rk-code-field', $options);
         $options = $this->provideOptionToHtml('mode', $options);
         $options = $this->provideOptionToHtml('theme', $options);
 
-        return $this->textarea($name, $value, $options) . '<div class="js-code"></div>';
+        return $this->textarea($name, $value, $options) . '<div class="rk-code"></div>';
     }
 
     public function color($name, $value = null, $options = [])
     {
-        $options = $this->appendClassToOptions('js-color-field', $options);
+        $options = $this->appendClassToOptions('rk-color-field', $options);
         $options = $this->provideOptionToHtml('minicolors', $options);
 
         return $this->text($name, $value, $options);
@@ -264,17 +264,17 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function geopoint($name, $value = null, $options = [])
     {
-        $options = $this->appendClassToOptions('js-geopoint-field', $options);
+        $options = $this->appendClassToOptions('rk-geopoint-field', $options);
         $options = $this->provideOptionToHtml('map', $options);
         $options = $this->provideOptionToHtml('layer', $options);
         $options = $this->provideOptionToHtml('type', $options);
 
-        return '<div class="js-map"></div>' . $this->text($name, $value, $options);
+        return '<div class="rk-map"></div>' . $this->text($name, $value, $options);
     }
 
     public function imageUpload($name, $value = null, $options = [])
     {
-        $options = $this->appendClassToOptions('js-uploader-field', $options);
+        $options = $this->appendClassToOptions('rk-uploader-field', $options);
         $options = $this->appendClassToOptions('hidden', $options);
         $options = $this->provideOptionToHtml('url', $options, config('rutorika-form.default_upload_url'));
         $options = $this->provideOptionToHtml('type', $options);
@@ -283,15 +283,15 @@ class FormBuilder extends \Collective\Html\FormBuilder
         $fileSrc = $this->fileSrc($fileValue);
 
         $template = '
-        <div class="js-upload-container js-upload-image-container">
-            <div class="upload-result-wrap">
-                <a href="%s" class="upload-result"><img src="%s" /></a>
+        <div class="rk-upload-container rk-upload-image-container">
+            <div class="rk-upload-result-wrap">
+                <a href="%s" class="rk-upload-result"><img src="%s" /></a>
             </div>
             <div>
                 <span class="btn btn-default btn-sm fileinput-button">
                   <i class="glyphicon glyphicon-picture"></i>%s
                 </span><!--
-                --><span class="btn btn-default btn-sm js-upload-remove">
+                --><span class="btn btn-default btn-sm rk-upload-remove">
                   <i class="glyphicon glyphicon-remove"></i>
                 </span>
             </div>
@@ -304,7 +304,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function fileUpload($name, $value = null, $options = [])
     {
-        $options = $this->appendClassToOptions('js-uploader-field', $options);
+        $options = $this->appendClassToOptions('rk-uploader-field', $options);
         $options = $this->appendClassToOptions('hidden', $options);
         $options = $this->provideOptionToHtml('url', $options);
         $options = $this->provideOptionToHtml('type', $options);
@@ -313,16 +313,16 @@ class FormBuilder extends \Collective\Html\FormBuilder
         $fileSrc = $this->fileSrc($fileValue);
 
         $template = '
-        <div class="js-upload-container js-upload-file-container">
-            <div class="upload-result-wrap">
+        <div class="rk-upload-container rk-upload-file-container">
+            <div class="rk-upload-result-wrap">
                 <p class="form-control-static">
                   <span class="btn btn-default btn-sm fileinput-button">
                   <i class="glyphicon glyphicon-picture"></i>%s
                     </span><!--
-                    --><span class="btn btn-default btn-sm js-upload-remove">
+                    --><span class="btn btn-default btn-sm rk-upload-remove">
                       <i class="glyphicon glyphicon-remove"></i>
                     </span><!--
-                    --><a href="%s" target="_blank" class="upload-result">%s</a>
+                    --><a href="%s" target="_blank" class="rk-upload-result">%s</a>
                 </p>
             </div>
         </div>';

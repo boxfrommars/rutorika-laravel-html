@@ -1,9 +1,9 @@
 $(document).ready(function(){
-  $('.js-upload-image-container .upload-result').magnificPopup({type: 'image'});
+  $('.rk-upload-image-container .rk-upload-result').magnificPopup({type: 'image'});
 
-  $('.js-uploader-field').each(function () {
+  $('.rk-uploader-field').each(function () {
     var $field = $(this);
-    var $container = $field.siblings('.js-upload-container');
+    var $container = $field.siblings('.rk-upload-container');
 
     $container.find('input:file').fileupload({
       dataType: 'json',
@@ -17,7 +17,7 @@ $(document).ready(function(){
       done: function (e, data) {
         var result = data.result;
         $field.val(result.filename);
-        $container.find('.upload-result').attr('href', result.path);
+        $container.find('.rk-upload-result').attr('href', result.path);
         $container.trigger('uploaded', [result]);
       },
 
@@ -27,28 +27,28 @@ $(document).ready(function(){
     })
   });
 
-  $('.js-upload-remove').on('click', function (e) {
+  $('.rk-upload-remove').on('click', function (e) {
     e.preventDefault();
-    var $container = $(this).parents('.js-upload-container');
+    var $container = $(this).parents('.rk-upload-container');
 
-    $container.siblings('.js-uploader-field').val('');
-    $container.find('.upload-result').attr('href', '');
+    $container.siblings('.rk-uploader-field').val('');
+    $container.find('.rk-upload-result').attr('href', '');
     $container.trigger('removed', [$container]);
   });
 
-  $('.js-upload-image-container')
+  $('.rk-upload-image-container')
     .on('uploaded', function (e, result) {
-      $(this).find('.upload-result img').attr('src', result.path);
+      $(this).find('.rk-upload-result img').attr('src', result.path);
     })
     .on('removed', function () {
-      $(this).find('.upload-result img').attr('src', '');
+      $(this).find('.rk-upload-result img').attr('src', '');
     });
 
-  $('.js-upload-file-container')
+  $('.rk-upload-file-container')
     .on('uploaded', function (e, result) {
-      $(this).find('.upload-result').text(result.filename);
+      $(this).find('.rk-upload-result').text(result.filename);
     })
     .on('removed', function () {
-      $(this).find('.upload-result').text('');
+      $(this).find('.rk-upload-result').text('');
     });
 });

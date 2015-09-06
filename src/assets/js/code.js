@@ -1,9 +1,9 @@
 $(document).ready(function () {
   ace.config.set("basePath", "/vendor/rutorika/form/vendor/ace/src-noconflict/");
 
-  $('.js-code-field').each(function () {
+  $('.rk-code-field').each(function () {
     var $field = $(this);
-    var editor = ace.edit($field.siblings('.js-code').get(0));
+    var editor = ace.edit($field.siblings('.rk-code').get(0));
 
     editor.$blockScrolling = Infinity; // @see https://github.com/angular-ui/ui-ace/issues/104
 

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $('.js-color-field').each(function () {
+  $('.rk-color-field').each(function () {
     var $field = $(this);
     var settings = $field.data('minicolors');
 

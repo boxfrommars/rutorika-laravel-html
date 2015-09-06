@@ -1,4 +1,4 @@
-$('.select2').each(function () {
+$('.rk-select2').each(function () {
   var $select = $(this);
 
   var currentValue = $select.val();

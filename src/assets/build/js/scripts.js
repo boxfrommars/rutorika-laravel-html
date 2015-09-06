@@ -1,9 +1,9 @@
 $(document).ready(function () {
   ace.config.set("basePath", "/vendor/rutorika/form/vendor/ace/src-noconflict/");
 
-  $('.js-code-field').each(function () {
+  $('.rk-code-field').each(function () {
     var $field = $(this);
-    var editor = ace.edit($field.siblings('.js-code').get(0));
+    var editor = ace.edit($field.siblings('.rk-code').get(0));
 
     editor.$blockScrolling = Infinity; // @see https://github.com/angular-ui/ui-ace/issues/104
 
@@ -21,7 +21,7 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function(){
-  $('.js-color-field').each(function () {
+  $('.rk-color-field').each(function () {
     var $field = $(this);
     var settings = $field.data('minicolors');
 
@@ -31,77 +31,23 @@ $(document).ready(function(){
   });
 });
 $(function () {
-  $('.js-datetimepicker').each(function () {
+  $('.rk-datetimepicker').each(function () {
     var $field = $(this).find('input');
     var dateOptions = $field.data('datetime');
 
     $(this).datetimepicker(dateOptions);
   });
 });
-$(document).ready(function(){
-  $('.js-upload-image-container .upload-result').magnificPopup({type: 'image'});
-
-  $('.js-uploader-field').each(function () {
-    var $field = $(this);
-    var $container = $field.siblings('.js-upload-container');
-
-    $container.find('input:file').fileupload({
-      dataType: 'json',
-      url: $field.data('url') || '/upload',
-      paramName: 'file',
-      formData: [{
-        name: 'type',
-        value: $field.data('type') || 'default'
-      }],
-
-      done: function (e, data) {
-        var result = data.result;
-        $field.val(result.filename);
-        $container.find('.upload-result').attr('href', result.path);
-        $container.trigger('uploaded', [result]);
-      },
-
-      fail: function (e, data) {
-        console.error(data);
-      }
-    })
-  });
-
-  $('.js-upload-remove').on('click', function (e) {
-    e.preventDefault();
-    var $container = $(this).parents('.js-upload-container');
-
-    $container.siblings('.js-uploader-field').val('');
-    $container.find('.upload-result').attr('href', '');
-    $container.trigger('removed', [$container]);
-  });
-
-  $('.js-upload-image-container')
-    .on('uploaded', function (e, result) {
-      $(this).find('.upload-result img').attr('src', result.path);
-    })
-    .on('removed', function () {
-      $(this).find('.upload-result img').attr('src', '');
-    });
-
-  $('.js-upload-file-container')
-    .on('uploaded', function (e, result) {
-      $(this).find('.upload-result').text(result.filename);
-    })
-    .on('removed', function () {
-      $(this).find('.upload-result').text('');
-    });
-});
 $(document).ready(function () {
-  
+
   function parsePoint(value) {
     return value ? value.split(':') : null;
   }
 
-  $('.js-geopoint-field').each(function () {
+  $('.rk-geopoint-field').each(function () {
 
     var $field = $(this);
-    var $map = $(this).siblings('.js-map');
+    var $map = $(this).siblings('.rk-map');
     var pointMarker;
 
     var layerName = $field.data('layer') || 'osm';
@@ -212,7 +158,7 @@ $(document).ready(function () {
   });
 
 });
-$('.select2').each(function () {
+$('.rk-select2').each(function () {
   var $select = $(this);
 
   var currentValue = $select.val();
@@ -251,4 +197,59 @@ $('.select2').each(function () {
       theme: 'bootstrap'
     });
   }
+});
+
+$(document).ready(function(){
+  $('.rk-upload-image-container .rk-upload-result').magnificPopup({type: 'image'});
+
+  $('.rk-uploader-field').each(function () {
+    var $field = $(this);
+    var $container = $field.siblings('.rk-upload-container');
+
+    $container.find('input:file').fileupload({
+      dataType: 'json',
+      url: $field.data('url') || '/upload',
+      paramName: 'file',
+      formData: [{
+        name: 'type',
+        value: $field.data('type') || 'default'
+      }],
+
+      done: function (e, data) {
+        var result = data.result;
+        $field.val(result.filename);
+        $container.find('.rk-upload-result').attr('href', result.path);
+        $container.trigger('uploaded', [result]);
+      },
+
+      fail: function (e, data) {
+        console.error(data);
+      }
+    })
+  });
+
+  $('.rk-upload-remove').on('click', function (e) {
+    e.preventDefault();
+    var $container = $(this).parents('.rk-upload-container');
+
+    $container.siblings('.rk-uploader-field').val('');
+    $container.find('.rk-upload-result').attr('href', '');
+    $container.trigger('removed', [$container]);
+  });
+
+  $('.rk-upload-image-container')
+    .on('uploaded', function (e, result) {
+      $(this).find('.rk-upload-result img').attr('src', result.path);
+    })
+    .on('removed', function () {
+      $(this).find('.rk-upload-result img').attr('src', '');
+    });
+
+  $('.rk-upload-file-container')
+    .on('uploaded', function (e, result) {
+      $(this).find('.rk-upload-result').text(result.filename);
+    })
+    .on('removed', function () {
+      $(this).find('.rk-upload-result').text('');
+    });
 });

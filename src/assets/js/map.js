@@ -4,10 +4,10 @@ $(document).ready(function () {
     return value ? value.split(':') : null;
   }
 
-  $('.js-geopoint-field').each(function () {
+  $('.rk-geopoint-field').each(function () {
 
     var $field = $(this);
-    var $map = $(this).siblings('.js-map');
+    var $map = $(this).siblings('.rk-map');
     var pointMarker;
 
     var layerName = $field.data('layer') || 'osm';
