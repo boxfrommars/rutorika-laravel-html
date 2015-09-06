@@ -20,11 +20,11 @@ class HtmlServiceProvider extends \Collective\Html\HtmlServiceProvider
     {
         $this->publishes([
             __DIR__ . '/rutorika-form.php' => config_path('rutorika-form.php'),
-        ], 'config');
+        ]);
 
         $this->publishes([
             __DIR__ . '/assets' => public_path('vendor/rutorika/form'),
-        ], 'public');
+        ]);
     }
 
     /**
