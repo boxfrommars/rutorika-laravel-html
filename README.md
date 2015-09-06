@@ -109,7 +109,7 @@ Add js and css:
 <script src="/vendor/rutorika/form/build/js/vendor.js"></script>
 <script src="/vendor/rutorika/form/build/js/scripts.js"></script>
 ```
-> Note. this script doesn't contain Jquery or Bootstrap scripts, you should add them by yourself.
+> Note: This scripts doesn't contain Jquery script or Bootstrap style, you should add them by yourself. (Note that Bootstrap js script doesn't required)
 
 If you use map fields differ then osm or bing (google or yandex), you should add scripts for that map apis
 
@@ -179,15 +179,15 @@ Form::close();
 
 ### Custom controls
 
- - [code](Code Field)
- - [color](Color Field)
- - [geopoint](Geopoint Field)
- - [imageUpload](Image && File Field)
- - [fileUpload](Image && File Field)
- - [select2](Select2 Field)
- - [date](Date, Datetime and Time Fields)
- - [datetime](Date, Datetime and Time Fields)
- - [time](Date, Datetime and Time Fields)
+ - [code](#Code Field)
+ - [color](#Color Field)
+ - [geopoint](#Geopoint Field)
+ - [imageUpload](#Image && File Field)
+ - [fileUpload](#Image && File Field)
+ - [select2](#Select2 Field)
+ - [date](#Date, Datetime and Time Fields)
+ - [datetime](#Date, Datetime and Time Fields)
+ - [time](#Date, Datetime and Time Fields)
 
 Documentation for each of this controls see in Custom Form fields section
 
