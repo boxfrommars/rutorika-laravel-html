@@ -13,6 +13,10 @@ class UploadController extends Controller {
     {
         \Log::debug($request->all());
 
+        $typeConfig = config('rutorika-form.upload.types', []);
+
+        \Log::debug($typeConfig);
+
         $this->validate($request, [
             'file' => 'image'
         ]);

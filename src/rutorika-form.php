@@ -15,6 +15,9 @@ return [
     // you may not rely on this config and implement your own validation
     'upload' => [
         'types' => [
+            'default' => [
+                'rules' => 'required|image'
+            ],
             'image' => [
                 'rules' => 'required|image'
             ],
