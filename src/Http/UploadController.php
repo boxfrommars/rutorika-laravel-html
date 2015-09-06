@@ -5,23 +5,17 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
-class UploadController extends Controller {
+class UploadController extends Controller
+{
 
     use ValidatesRequests;
 
     public function upload(Request $request)
     {
-        \Log::debug($request->all());
-
-        $typeConfig = config('rutorika-form.upload.types', []);
-
-        \Log::debug($typeConfig);
-
-        $this->validate($request, [
-            'file' => 'image'
-        ]);
+        $this->validateUpload($request);
 
         $file = $request->file('file');
+        $file = $this->processUpload($file, $request->get('type'));
 
         $filename = static::generateFilename($file);
         $fileDestinationInfo = static::getDestinationInfo($filename, config('rutorika-form.public_storage_path'));
@@ -57,5 +51,36 @@ class UploadController extends Controller {
             'public_destination' => implode(DIRECTORY_SEPARATOR, ['', $path, $subpath, $filename]),
             'assets_destination' => implode(DIRECTORY_SEPARATOR, [$subpath, $filename]),
         ];
+    }
+
+    protected function validateUpload($request)
+    {
+        $typeConfig = config('rutorika-form.upload.types', []);
+
+        $this->validate($request, [
+            'type' => 'required|in:' . implode(',', array_keys($typeConfig)),
+            'file' => array_get($typeConfig, 'rules', 'image|max:3072'),
+        ]);
+    }
+
+    /**
+     * Override this in the child class to process file (crop image, add watermarks etc.). Also you can use `type` to choose what manipultion do
+     *
+     * @param $file
+     * @param $type
+     *
+     * @return mixed
+     */
+    protected function processUpload($file, $type)
+    {
+//        switch ($type) {
+//            case 'album-image':
+//                $file = SomeImageLibrary::addWatermark($file)
+//                break;
+//            case 'cat-photo':
+//                $file = SomeImageLibrary::resizeAndAddMimi($file)
+//                break;
+//        }
+        return $file;
     }
 }

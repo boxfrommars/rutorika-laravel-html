@@ -16,19 +16,19 @@ return [
     'upload' => [
         'types' => [
             'default' => [
-                'rules' => 'required|image'
+                'rules' => 'required|image|max:3072' // in Kb
             ],
             'image' => [
-                'rules' => 'required|image'
+                'rules' => 'required|image|max:3072'
             ],
             'doc' => [
-                'rules' => 'required|mimes:mp3,wav,ogg'
+                'rules' => 'required|mimes:mp3,wav,ogg|max:3072'
             ],
             'audio' => [
-                'rules' => 'required|mimes:mp3,wav,ogg'
+                'rules' => 'required|mimes:mp3,wav,ogg|max:3072'
             ],
             'video' => [
-                'rules' => 'mimes:m4v,avi,flv,mp4,mov,wmv,3gp'
+                'rules' => 'mimes:m4v,avi,flv,mp4,mov,wmv,3gp|max:3072'
             ]
         ]
     ],
