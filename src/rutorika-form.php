@@ -22,7 +22,7 @@ return [
                 'rules' => 'required|image|max:3072'
             ],
             'doc' => [
-                'rules' => 'required|mimes:mp3,wav,ogg|max:3072'
+                'rules' => 'required|mimes:doc,pdf,docs,txt'
             ],
             'audio' => [
                 'rules' => 'required|mimes:mp3,wav,ogg|max:3072'
