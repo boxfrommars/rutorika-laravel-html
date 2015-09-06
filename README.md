@@ -179,15 +179,15 @@ Form::close();
 
 ### Custom controls
 
- - [code](#Code Field)
- - [color](#Color Field)
- - [geopoint](#Geopoint Field)
- - [imageUpload](#Image && File Field)
- - [fileUpload](#Image && File Field)
- - [select2](#Select2 Field)
- - [date](#Date, Datetime and Time Fields)
- - [datetime](#Date, Datetime and Time Fields)
- - [time](#Date, Datetime and Time Fields)
+ - [code](#code-field)
+ - [color](#color-field)
+ - [geopoint](#geopoint-field)
+ - [imageUpload](#image--file-field)
+ - [fileUpload](#image--file-field)
+ - [select2](#select2-field)
+ - [date](#date-datetime-and-time-fields)
+ - [datetime](#date-datetime-and-time-fields)
+ - [time](#date-datetime-and-time-fields)
 
 Documentation for each of this controls see in Custom Form fields section
 
