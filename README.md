@@ -1,5 +1,66 @@
 # Twitter Bootstrap Forms for Laravel 5
 
+Simple way to create forms
+
+Custom form controls and shorthand methods for form rows (both vertical and horizontal forms supported):
+
+Form fields: [View demo]()
+
+```php
+{!! Form::open() !!}
+
+{!! Form::textField('Form::textField', 'textField', null, [], 'Should contains letters and numbers') !!}
+{!! Form::checkboxField('Form::checkboxField', 'checkboxField') !!}
+{!! Form::numberField('Form::numberField', 'numberField') !!}
+{!! Form::textField('Something', 'something') !!}
+{!! Form::selectField('selectField', 'selectField', [4 => 'Something', 8 => 'Wicked', 15 => 'This', 16 => 'Way', 23 => 'Comes', 42 => '.']) !!}
+
+{!! Form::geopointField('Place on map', 'geopoint', null, ['map' => ['center' => [45.04, 39], 'zoom' => 12]]) !!}
+
+{!! Form::codeField('HTML, monokai theme', 'codeField', null, ['mode' => 'html', 'theme' => 'monokai']) !!}
+
+{!! Form::imageField('Image', 'image', null, [], 'JPG or PNG') !!}
+{!! Form::fileField('File', 'file', null, [], 'PDF, DOC, DOCX <= 3Mb') !!}
+
+{!! Form::datetimeField('Date and Time', 'datetime') !!}
+{!! Form::dateField('Date', 'date') !!}
+{!! Form::timeField('Time', 'time') !!}
+
+{!! Form::select2Field('Select2', 'select2', [4 => 'Something', 8 => 'Wicked', 15 => 'This', 16 => 'Way', 23 => 'Comes', 42 => '.']) !!}
+{!! Form::select2Field('Select2 Multiple', 'select2-multiple', [4 => 'Something', 8 => 'Wicked', 15 => 'This', 16 => 'Way', 23 => 'Comes', 42 => '.'], [16, 23], ['multiple' => true]) !!}
+
+{!! Form::select2Field('Select2 Async', 'select2-async', [], 2, ['select2' => ['ajax--url' => '/select2/data']]) !!}
+{!! Form::select2Field('Select2 Async Multiple', 'select2-async-multiple', [], [2, 3], ['select2' => ['ajax--url' => '/select2/data'], 'multiple' => true]) !!}
+
+{!! Form::submitField() !!}
+{!! Form::close() !!}
+```
+
+Custom controls:
+
+```php
+{!! Form::open(['theme' => 'bootstrap-vertical']) !!}
+
+{!! Form::geopoint('geopoint', null, ['map' => ['center' => [45.04, 39], 'zoom' => 12]]) !!}
+
+{!! Form::code('codeField', null, ['mode' => 'html', 'theme' => 'monokai']) !!}
+
+{!! Form::imageUpload('image') !!}
+{!! Form::fileUpload('file') !!}
+
+{!! Form::datetimePicker('datetime') !!}
+{!! Form::datePicker('date') !!}
+{!! Form::timePicker('time') !!}
+
+{!! Form::select2('select2', [4 => 'Something', 8 => 'Wicked', 15 => 'This', 16 => 'Way', 23 => 'Comes', 42 => '.']) !!}
+{!! Form::select2('select2-multiple', [4 => 'Something', 8 => 'Wicked', 15 => 'This', 16 => 'Way', 23 => 'Comes', 42 => '.'], [16, 23], ['multiple' => true]) !!}
+{!! Form::select2('select2-async', [], 2, ['select2' => ['ajax--url' => '/select2/data']]) !!}
+{!! Form::select2('select2-async-multiple', [], [2, 3], ['select2' => ['ajax--url' => '/select2/data'], 'multiple' => true]) !!}
+
+{!! Form::submitField() !!}
+{!! Form::close() !!}
+```
+
 Based on [LaravelCollective/html](https://github.com/LaravelCollective/html)
 
 Tested with Twitter Bootstrap >= 3.3.0
@@ -9,7 +70,7 @@ Tested with Twitter Bootstrap >= 3.3.0
 Install package through composer
 
 ```bash
-composer require rutorika/laravel-html
+$ composer require rutorika/laravel-html
 ```
 
 Add service provider and facades to your `config/app.php`
@@ -29,31 +90,111 @@ Add service provider and facades to your `config/app.php`
 ]
 ```
 
-Add needed js to your page. You can add all scripts at once:
+Publish packeage configuration and assets. This will add `/config/rutorika-form.php` configuration file and `public/vendor/rutorika-form/*` assets (js, css and few images)
+
+```bash
+$ php artisan vendor:publish --provider="Rutorika\Html\HtmlServiceProvider"
+```
+
+Add js and css:
 
 ```html
-<script src="/assets/js/rutorika-form.js"></script>
+<!-- css part -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="/vendor/rutorika/form/build/css/vendor.min.css">
+<link rel="stylesheet" href="/vendor/rutorika/form/build/css/style.min.css">
+
+<!-- script part -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="/vendor/rutorika/form/build/js/vendor.js"></script>
+<script src="/vendor/rutorika/form/build/js/scripts.js"></script>
 ```
-> Note. this script doesn't contain Jquery or Bootstrap scripts, you should add they by yourself.
+> Note. this script doesn't contain Jquery or Bootstrap scripts, you should add them by yourself.
 
+If you use map fields differ then osm or bing (google or yandex), you should add scripts for that map apis
 
-Add styles
-
-```
-<script src="/assets/css/rutorika-form.css"></script>
-```
-> Note. this style doesn't contain Bootstrap styles, you should add they by yourself.
-
-If you use map fields differ then osm or bing (google or yandex), you should add scripts for that map api
-
-```
+```html
 <script src="//maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+<!-- or -->
 <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
 ```
 
-> Note. if you installed all script at once with method described above, you shouldnt do any of Installation for each field
+If you don't want to add all vendor styles and scripts you can add the needed ones manually. Choose from
+
+```html
+<!-- css part -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/venfor/rutorika/form/vendor/jquery-minicolors-2.1.12/jquery.minicolors.css" />
+<link rel="stylesheet" href="/venfor/rutorika/form/vendor/leaflet-0.7.5/leaflet.css" />
+<link rel="stylesheet" href="/venfor/rutorika/form/vendor/jQuery-File-Upload-9.11.0/css/jquery.fileupload.css" />
+<link rel="stylesheet" href="/venfor/rutorika/form/vendor/magnific-popup/magnific-popup.css" />
+<link rel="stylesheet" href="/venfor/rutorika/form/vendor/select2/css/select2.min.css" />
+<link rel="stylesheet" href="/venfor/rutorika/form/vendor/select2/css/select2-bootstrap.min.css" />
+<link rel="stylesheet" href="/venfor/rutorika/form/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
+
+<link rel="stylesheet" href="/venfor/rutorika/form/css/style.css" />
+
+<!-- script part -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script src="/venfor/rutorika/form/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script> {{-- only core and sortable --}}
+<script src="/venfor/rutorika/form/vendor/momentjs/moment-with-locales.min.js"></script>
+<script src="/venfor/rutorika/form/vendor/ace/src-noconflict/ace.js"></script>
+<script src="/venfor/rutorika/form/vendor/jquery-minicolors-2.1.12/jquery.minicolors.min.js"></script>
+<script src="/venfor/rutorika/form/vendor/leaflet-0.7.5/leaflet.js"></script>
+<script src="/venfor/rutorika/form/vendor/leaflet-plugins/layer/tile/Yandex.js"></script>
+<script src="/venfor/rutorika/form/vendor/leaflet-plugins/layer/tile/Google.js"></script>
+<script src="/venfor/rutorika/form/vendor/leaflet-plugins/layer/tile/Bing.js"></script>
+<script src="/venfor/rutorika/form/vendor/jQuery-File-Upload-9.11.0/js/jquery.iframe-transport.js"></script>
+<script src="/venfor/rutorika/form/vendor/jQuery-File-Upload-9.11.0/js/jquery.fileupload.js"></script>
+<script src="/venfor/rutorika/form/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+<script src="/venfor/rutorika/form/vendor/select2/js/select2.full.js"></script>
+<script src="/venfor/rutorika/form/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+<script src="/venfor/rutorika/form/js/code.js"></script>
+<script src="/venfor/rutorika/form/js/color.js"></script>
+<script src="/venfor/rutorika/form/js/date.js"></script>
+<script src="/venfor/rutorika/form/js/image.js"></script>
+<script src="/venfor/rutorika/form/js/map.js"></script>
+<script src="/venfor/rutorika/form/js/select2.js"></script>
+```
+
 
 ## Usage
+
+### Form
+
+```php
+Form::open(['theme' => 'bootstrap-horizontal', 'label-width' => 4]);
+// fields
+Form::close();
+```
+
+#### Options
+
+ - `theme`: *string*, `bootstrap-horizontal` or `bootstrap-vertical`. Default `bootstrap-horizontal`. Form theme
+ - `label-width`: *integer* [1..11] only for `bootstrap-horizontal`. Default `3`. Label width (will be used in label class: `col-md-{$labelWith}`)
+ - `control-width`: *integer* [1..11] only for `bootstrap-horizontal`. Default `12` - `label-width`. Control width (will be used in control class: `col-md-{$labelWith}`)
+
+### Custom controls
+
+ - [code](Code Field)
+ - [color](Color Field)
+ - [geopoint](Geopoint Field)
+ - [imageUpload](Image && File Field)
+ - [fileUpload](Image && File Field)
+ - [select2](Select2 Field)
+ - [date](Date, Datetime and Time Fields)
+ - [datetime](Date, Datetime and Time Fields)
+ - [time](Date, Datetime and Time Fields)
+
+Documentation for each of this controls see in Custom Form fields section
+
+### Fields
+
+Fields are wrappers to controls that provide shorthand methods to create form rows.
+Example:
 
 This package provides Form::*Fields methods.
 First argument for this methods is `$title` which wil be set as label of the field.
@@ -105,7 +246,7 @@ Also all error messages and corresponding css-classes if errors exists will be a
 [Ace](http://ace.c9.io/) code editor field
 
 ```php
-// as input
+// as control
 Form::code($name, $value = null, $options = array('mode' => 'html', 'theme' => 'monokai'))
 // as field
 Form::codeField($title, $name, $value = null, $options = array('mode' => 'html', 'theme' => 'monokai'), $help = '')
@@ -115,31 +256,6 @@ Form::codeField($title, $name, $value = null, $options = array('mode' => 'html',
 * `theme` -- code editor theme, default -- `textmate`. [See all themes](https://github.com/ajaxorg/ace/tree/master/lib/ace/theme)
 * `mode` -- code language, default -- `html`. [See all modes](https://github.com/ajaxorg/ace/tree/master/lib/ace/mode)
 
-##### Installation
-
-You should [embed Ace to your site](http://ace.c9.io/#nav=embedding) and apply it to textareas with `js-code-field` css class. For example:
-
-```js
-
-// codeField
-$('.js-code-field').each(function () {
-
-    var $field = $(this);
-    var editor = ace.edit($field.siblings('.js-code').get(0));
-
-    var mode = $field.data('mode') || 'html';
-    var theme = $field.data('theme') || 'textmate';
-
-    editor.setTheme('ace/theme/' + theme);
-    editor.getSession().setMode('ace/mode/' + mode);
-
-    editor.getSession().setValue($field.val());
-
-    editor.getSession().on('change', function () {
-        $field.val(editor.getSession().getValue());
-    });
-});
-```
 
 #### Color Field
 
@@ -155,21 +271,6 @@ Form::colorField($title, $name, $value = null, $options = ['minicolors' => ['con
 ##### Options
 
 * `'minicolors' => ['control' => 'hue', 'defaultValue' => '', /* ... */]`. All this settings will be passed to minicolors settings. [See all available settings](http://labs.abeautifulsite.net/jquery-minicolors/#settings).
-
-##### Installation
-
-You should [embed Jquery Minicolors to your site](http://labs.abeautifulsite.net/jquery-minicolors/#download) and apply it to fields:
-
-```js
-$('.js-color-field').each(function () {
-    var $field = $(this);
-    var settings = $field.data('minicolors');
-
-    settings = $.extend({theme: 'bootstrap'}, settings);
-
-    $field.minicolors(settings);
-});
-```
 
 
 #### Geopoint Field
@@ -197,10 +298,13 @@ Field generates string value `latitude:longitude`, e.g. `45.060184073445356:38.9
 
 ##### Installation
 
-You should [embed Leaflet](http://leafletjs.com/examples/quick-start.html) (both css and js). If you use provider different from `osm`, you should embed required plugins from [leaflet-plugins](https://github.com/shramov/leaflet-plugins), e.g. `/leaflet-plugins/layer/tile/Google.js`, `/leaflet-plugins/layer/tile/Bing.js` or `/leaflet-plugins/layer/tile/Yandex.js`.
-If you use `google` or `yandex` add their api, e.g. `//maps.google.com/maps/api/js?v=3.2&sensor=false` or `//api-maps.yandex.ru/2.1/?lang=ru_RU`
+If you use map fields differ then osm or bing (google or yandex), you should add scripts for that map apis
 
-And apply map to field
+```html
+<script src="//maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+<!-- or -->
+<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+```
 
 #### Image && File Field
 
@@ -229,7 +333,7 @@ Form::fileField($title, $name, $value = null, $options = [], $help = '')
 
 ##### Installation
 
-You should implement saving of file on server side or use `\Rutorika\Html\Http\UploadController`, which has simple implementaion of saving files:
+You should implement saving of file on the server side or use `\Rutorika\Html\Http\UploadController`, which has simple implementaion of saving files:
 
 ```php
 Route::group(['middleware' => 'auth'], function () {
@@ -242,7 +346,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Set path to the storage folder at `public_storage_path` in the rutorika-form config (the folder in which files are saved, default `storage`)
 
-> @TODO: Note that `\Rutorika\Html\Http\UploadController` doesn't have any validation, you shoul implement it if you need.
+> @TODO: Note that `\Rutorika\Html\Http\UploadController` doesn't have any validation, you should implement it by yourself if you need.
 
 #### Select2 Field
 
@@ -284,50 +388,6 @@ Set path to the storage folder at `public_storage_path` in the rutorika-form con
 
 ##### Installation
 
-embed [Select2 js and css](https://select2.github.io/) and [Select2 bootstrap theme](https://github.com/select2/select2-bootstrap-theme). Apply select2 to `.select2` elements:
-
-```js
-$('.select2').each(function () {
-  var $select = $(this);
-
-  var currentValue = $select.val();
-  var value = $select.data('value');
-  var url = $select.data('ajax--url');
-
-  // if async, selected, and no option with selected value exists -- then prefetching selected item from server
-  // and add fetched option to select.
-  if (url && value && !currentValue) {
-    var request = $.ajax({
-      url: url + '/init',
-      data: {
-        ids: value
-      }
-    });
-
-    request.then(function (response) {
-      response.results.forEach(function (result) {
-        var $option = $('<option>')
-          .text(result.text)
-          .attr('value', result.id)
-          .prop('selected', true);
-
-        $select.prepend($option);
-      });
-
-      initSelect2($select);
-    });
-
-  } else {
-    initSelect2($select);
-  }
-
-  function initSelect2($select) {
-    $select.select2({
-      theme: 'bootstrap'
-    });
-  }
-});
-```
 
 If you use async select2, the backend should response on `/your-data-ajax--url?q=searchstring` request with the format:
 
@@ -407,23 +467,8 @@ Form::datePicker($title, $name, $value = null, $options = ['datetime' => []], $h
 
 > Note. You can set default datetimepicker options at `rutorika-form.php` config.
 
+
 > Note. By default datetimepicker use locale from your app locale (see `config/app.php`).
-
-##### Installation
-
-You should [add Momentjs](http://labs.abeautifulsite.net/jquery-minicolors/#download) and [Eonasdan Bootstrap 3 Datepicker](http://eonasdan.github.io/bootstrap-datetimepicker/Installing/). And apply datepicker to `.js-datetimepicker`
-
-```js
-$(function () {
-  $('.js-datetimepicker').each(function () {
-
-    var $field = $(this).find('input');
-    var dateOptions = $field.data('datetime');
-
-    $(this).datetimepicker(dateOptions);
-  });
-});
-```
 
 
 #### Image Multiple Field
