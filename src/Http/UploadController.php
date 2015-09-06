@@ -1,13 +1,20 @@
 <?php
 namespace Rutorika\Html\Http;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
 class UploadController extends Controller {
 
+    use ValidatesRequests;
+
     public function upload(Request $request)
     {
+        $this->validate($request, [
+            'file' => 'image'
+        ]);
+
         $file = $request->file('file');
 
         $filename = static::generateFilename($file);
