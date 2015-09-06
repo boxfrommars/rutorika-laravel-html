@@ -85,14 +85,6 @@ While this package is in beta you should install it from github:
     ]
 ```
 
-"rutorika/laravel-html": "dev-master",
-
-Install package through composer
-
-```bash
-$ composer require rutorika/laravel-html
-```
-
 Add service provider and facades to your `config/app.php`
 
 ```php
