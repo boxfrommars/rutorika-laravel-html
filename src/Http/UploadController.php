@@ -53,18 +53,22 @@ class UploadController extends Controller
         ];
     }
 
+    /**
+     * @param Request $request
+     */
     protected function validateUpload($request)
     {
-        $typeConfig = config('rutorika-form.upload.types', []);
+        $typesConfig = config('rutorika-form.upload.types', []);
+        $typeConfig = array_get($typesConfig, $request->get('type', 'default'));
 
         $this->validate($request, [
-            'type' => 'required|in:' . implode(',', array_keys($typeConfig)),
+            'type' => 'required|in:' . implode(',', array_keys($typesConfig)),
             'file' => array_get($typeConfig, 'rules', 'image|max:3072'),
         ]);
     }
 
     /**
-     * Override this in the child class to process file (crop image, add watermarks etc.). Also you can use `type` to choose what manipultion do
+     * Override this in the child class to process file (crop image, add watermarks etc.). Also you can use `type` to choose what manipulation do
      *
      * @param $file
      * @param $type
