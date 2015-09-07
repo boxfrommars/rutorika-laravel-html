@@ -2,9 +2,10 @@
 
 namespace Rutorika\Html\Theme;
 
+use Illuminate\Support\MessageBag;
 use Rutorika\Html\FormBuilder;
 
-class Bootstrap implements Themable
+class Bootstrap extends BootstrapAbstract implements Themable
 {
     /**
      * @var FormBuilder
@@ -20,6 +21,7 @@ class Bootstrap implements Themable
     {
         return $options;
     }
+
 
     /**
      * @inheritdoc

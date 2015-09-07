@@ -2,18 +2,23 @@
 
 namespace Rutorika\Html\Theme;
 
-use Illuminate\Support\Collection;
+use Illuminate\Contracts\Support\MessageBag;
 
-interface Themable {
+interface Themable
+{
+
     /**
      * @param            $title
      * @param            $name
      * @param string     $control
-     * @param Collection $errors
+     * @param MessageBag $errors
      * @param string     $help
      *
      * @return string
      */
     public function field($title, $name, $control = '', $errors = null, $help = '');
+
     public function updateOptions($options);
+
+    public function getUploadTemplate($previewTemplate);
 }
