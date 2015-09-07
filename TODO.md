@@ -19,5 +19,6 @@ May be move all the `type`-depending logic to the separate package and leave the
  - sir trevor (?)
 
 #### Other
- - multiplicator. Allow every field (->text() based) be multiple. to think about divider escaping (?)
+ - multiplicator. Allow every field (`->text()` based) be multiple. to think about divider escaping (?)
  - Configurable default geopoint options
+ - replace defalt fields methods with `__call` and `->defaultField`
