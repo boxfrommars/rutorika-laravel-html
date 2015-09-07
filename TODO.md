@@ -1,13 +1,8 @@
 #### File Upload
  - Multiple file/image upload
- - Add `type` param to a file upload request
- - Add `type` configuration (?)
- - File upload validation (in `UploadController`) based on `type` and configuration rules (use mime, image...)
  - Add method to add custom error handlers
- - File upload manipulation based on `type` (e.g. resize, crop and else) (?)
  - Empty image icon
-
-May be move all the `type`-depending logic to the separate package and leave the included one simple as possible?
+ - Move all the `type`-depending logic to the separate package and leave the included one simple as possible (?)
 
 #### Theming
  - Move all Bootstrap-related stuff from FormBuilder to themes and add Foundation theme (?)
