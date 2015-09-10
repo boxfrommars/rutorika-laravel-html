@@ -21,4 +21,5 @@ interface Themable
     public function updateOptions($options);
 
     public function getUploadTemplate($previewTemplate);
+    public function getUploadMultipleTemplate($previewTemplate);
 }

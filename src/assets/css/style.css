@@ -1,4 +1,4 @@
-.rk-upload-container .btn {
+.rk-upload-container .form-control-static .btn {
     display: inline-block;
     margin-right: 10px;
 }
@@ -8,6 +8,18 @@
     max-height: 200px;
 
     background-image: url(../img/background-pattern.png);
+}
+
+.rk-upload-container .thumb {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    background-position: center center;
+    background-size: cover;
+}
+.rk-upload-container .rk-upload-item {
+    float: left;
+    margin-right: 20px;
 }
 
 .mfp-figure:after {

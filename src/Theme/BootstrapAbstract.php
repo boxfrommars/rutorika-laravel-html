@@ -16,4 +16,14 @@ abstract class BootstrapAbstract
             </p>
         </div>';
     }
+    public function getUploadMultipleTemplate($previewTemplate)
+    {
+        return '
+        <div class="rk-upload-container">
+            <div class="rk-upload-preview clearfix">' . $previewTemplate . '</div>
+            <p class="form-control-static"><!-- upload controls
+                --><span class="btn btn-default btn-sm fileinput-button"><i class="glyphicon glyphicon-plus"></i> Add image {fileField}</span>
+            </p>
+        </div>';
+    }
 }
