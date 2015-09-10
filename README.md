@@ -137,39 +137,39 @@ If you don't want to add all vendor styles and scripts you can add the needed on
 <!-- css part -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-<link rel="stylesheet" href="/venfor/rutorika/form/vendor/jquery-minicolors-2.1.12/jquery.minicolors.css" />
-<link rel="stylesheet" href="/venfor/rutorika/form/vendor/leaflet-0.7.5/leaflet.css" />
-<link rel="stylesheet" href="/venfor/rutorika/form/vendor/jQuery-File-Upload-9.11.0/css/jquery.fileupload.css" />
-<link rel="stylesheet" href="/venfor/rutorika/form/vendor/magnific-popup/magnific-popup.css" />
-<link rel="stylesheet" href="/venfor/rutorika/form/vendor/select2/css/select2.min.css" />
-<link rel="stylesheet" href="/venfor/rutorika/form/vendor/select2/css/select2-bootstrap.min.css" />
-<link rel="stylesheet" href="/venfor/rutorika/form/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" href="/vendor/rutorika/form/vendor/jquery-minicolors-2.1.12/jquery.minicolors.css" />
+<link rel="stylesheet" href="/vendor/rutorika/form/vendor/leaflet-0.7.5/leaflet.css" />
+<link rel="stylesheet" href="/vendor/rutorika/form/vendor/jQuery-File-Upload-9.11.0/css/jquery.fileupload.css" />
+<link rel="stylesheet" href="/vendor/rutorika/form/vendor/magnific-popup/magnific-popup.css" />
+<link rel="stylesheet" href="/vendor/rutorika/form/vendor/select2/css/select2.min.css" />
+<link rel="stylesheet" href="/vendor/rutorika/form/vendor/select2/css/select2-bootstrap.min.css" />
+<link rel="stylesheet" href="/vendor/rutorika/form/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
 
-<link rel="stylesheet" href="/venfor/rutorika/form/css/style.css" />
+<link rel="stylesheet" href="/vendor/rutorika/form/css/style.css" />
 
 <!-- script part -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-<script src="/venfor/rutorika/form/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script> {{-- only core and sortable --}}
-<script src="/venfor/rutorika/form/vendor/momentjs/moment-with-locales.min.js"></script>
-<script src="/venfor/rutorika/form/vendor/ace/src-noconflict/ace.js"></script>
-<script src="/venfor/rutorika/form/vendor/jquery-minicolors-2.1.12/jquery.minicolors.min.js"></script>
-<script src="/venfor/rutorika/form/vendor/leaflet-0.7.5/leaflet.js"></script>
-<script src="/venfor/rutorika/form/vendor/leaflet-plugins/layer/tile/Yandex.js"></script>
-<script src="/venfor/rutorika/form/vendor/leaflet-plugins/layer/tile/Google.js"></script>
-<script src="/venfor/rutorika/form/vendor/leaflet-plugins/layer/tile/Bing.js"></script>
-<script src="/venfor/rutorika/form/vendor/jQuery-File-Upload-9.11.0/js/jquery.iframe-transport.js"></script>
-<script src="/venfor/rutorika/form/vendor/jQuery-File-Upload-9.11.0/js/jquery.fileupload.js"></script>
-<script src="/venfor/rutorika/form/vendor/magnific-popup/jquery.magnific-popup.js"></script>
-<script src="/venfor/rutorika/form/vendor/select2/js/select2.full.js"></script>
-<script src="/venfor/rutorika/form/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/vendor/rutorika/form/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script> {{-- only core and sortable --}}
+<script src="/vendor/rutorika/form/vendor/momentjs/moment-with-locales.min.js"></script>
+<script src="/vendor/rutorika/form/vendor/ace/src-noconflict/ace.js"></script>
+<script src="/vendor/rutorika/form/vendor/jquery-minicolors-2.1.12/jquery.minicolors.min.js"></script>
+<script src="/vendor/rutorika/form/vendor/leaflet-0.7.5/leaflet.js"></script>
+<script src="/vendor/rutorika/form/vendor/leaflet-plugins/layer/tile/Yandex.js"></script>
+<script src="/vendor/rutorika/form/vendor/leaflet-plugins/layer/tile/Google.js"></script>
+<script src="/vendor/rutorika/form/vendor/leaflet-plugins/layer/tile/Bing.js"></script>
+<script src="/vendor/rutorika/form/vendor/jQuery-File-Upload-9.11.0/js/jquery.iframe-transport.js"></script>
+<script src="/vendor/rutorika/form/vendor/jQuery-File-Upload-9.11.0/js/jquery.fileupload.js"></script>
+<script src="/vendor/rutorika/form/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+<script src="/vendor/rutorika/form/vendor/select2/js/select2.full.js"></script>
+<script src="/vendor/rutorika/form/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
-<script src="/venfor/rutorika/form/js/code.js"></script>
-<script src="/venfor/rutorika/form/js/color.js"></script>
-<script src="/venfor/rutorika/form/js/date.js"></script>
-<script src="/venfor/rutorika/form/js/image.js"></script>
-<script src="/venfor/rutorika/form/js/map.js"></script>
-<script src="/venfor/rutorika/form/js/select2.js"></script>
+<script src="/vendor/rutorika/form/js/code.js"></script>
+<script src="/vendor/rutorika/form/js/color.js"></script>
+<script src="/vendor/rutorika/form/js/date.js"></script>
+<script src="/vendor/rutorika/form/js/upload.js"></script>
+<script src="/vendor/rutorika/form/js/map.js"></script>
+<script src="/vendor/rutorika/form/js/select2.js"></script>
 ```
 
 
@@ -350,7 +350,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // ... other admin routes
 
-    route('/upload', '\Rutorika\Html\Http\UploadController@upload')
+    route('/upload', '\Rutorika\Html\Http\UploadController@upload');
 });
 ```
 
