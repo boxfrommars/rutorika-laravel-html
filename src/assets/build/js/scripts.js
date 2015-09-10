@@ -201,8 +201,9 @@ $('.rk-select2').each(function () {
   }
 });
 
+
 $(document).ready(function(){
-  $('.rk-upload-image-container .rk-upload-result').magnificPopup({type: 'image'});
+  $('.rk-upload-container .rk-upload-preview a').magnificPopup({type: 'image'});
 
   $('.rk-uploader-field').each(function () {
     var $field = $(this);
@@ -220,8 +221,13 @@ $(document).ready(function(){
       done: function (e, data) {
         var result = data.result;
         $field.val(result.filename);
-        $container.find('.rk-upload-result').attr('href', result.path);
-        $container.trigger('uploaded', [result]);
+        var $preview = $container.find('.rk-upload-preview');
+        $preview.find('a').attr('href', result.path);
+        $preview.find('img,audio').attr('src', result.path);
+
+        $container.find('.rk-upload-link')
+          .text(result.filename)
+          .attr('href', result.path);
       },
 
       fail: function (e, data) {
@@ -240,25 +246,16 @@ $(document).ready(function(){
   });
 
   $('.rk-upload-image-container')
-    .on('uploaded', function (e, result) {
-      $(this).find('.rk-upload-result img').attr('src', result.path);
-    })
     .on('removed', function () {
       $(this).find('.rk-upload-result img').attr('src', '');
     });
 
   $('.rk-upload-audio-container')
-    .on('uploaded', function (e, result) {
-      $(this).find('.rk-upload-result audio').attr('src', result.path);
-    })
     .on('removed', function () {
       $(this).find('.rk-upload-result audio').attr('src', '');
     });
 
   $('.rk-upload-file-container')
-    .on('uploaded', function (e, result) {
-      $(this).find('.rk-upload-result').text(result.filename);
-    })
     .on('removed', function () {
       $(this).find('.rk-upload-result').text('');
     });
