@@ -349,8 +349,8 @@ You should implement saving of file on the server side or use `\Rutorika\Html\Ht
 Route::group(['middleware' => 'auth'], function () {
 
     // ... other admin routes
-
-    route('/upload', '\Rutorika\Html\Http\UploadController@upload');
+    
+    Route::post('/upload', '\Rutorika\Html\Http\UploadController@upload');
 });
 ```
 
