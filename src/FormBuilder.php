@@ -297,7 +297,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
     {
         $previewTemplate = '<div class="rk-upload-item">
             <a href="{fileSrc}" class="thumb" style="background-image: url({fileSrc})"></a>
-            <p><span class="btn btn-default btn-sm"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
+            <p><span class="btn btn-default btn-sm sortable-handle"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
             <span class="btn btn-default btn-sm pull-right"><i class="glyphicon glyphicon-trash"></i></span></p>
           </div>';
 

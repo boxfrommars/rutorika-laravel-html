@@ -38,4 +38,16 @@ $(document).ready(function(){
     });
 
   });
+
+  var $sortableTable = $('.rk-upload-preview');
+  if ($sortableTable.length > 0) {
+    $sortableTable.sortable({
+      handle: '.sortable-handle',
+      //axis: 'y',
+      update: function(a, b){
+        console.log('done');
+      },
+      cursor: "move"
+    });
+  }
 });
