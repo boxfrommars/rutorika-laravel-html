@@ -295,10 +295,10 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function imageUploadMultiple($name, $value = null, $options = [])
     {
-        $previewTemplate = '<div class="rk-upload-item">
+        $previewTemplate = '<div class="rk-upload-item" data-filename="{filename}">
             <a href="{fileSrc}" class="thumb" style="background-image: url({fileSrc})"></a>
             <p><span class="btn btn-default btn-sm sortable-handle"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
-            <span class="btn btn-default btn-sm pull-right"><i class="glyphicon glyphicon-trash"></i></span></p>
+            <span class="btn btn-default btn-sm pull-right rk-upload-remove"><i class="glyphicon glyphicon-trash"></i></span></p>
           </div>';
 
         return $this->renderUploadMultiple($previewTemplate, $name, $value, $options);
@@ -338,6 +338,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function renderUploadMultiple($previewTemplate, $name, $value = null, $options = [])
     {
+        $options = $this->appendClassToOptions('rk-uploader-field', $options);
         $options = $this->appendClassToOptions('rk-uploader-multiple-field', $options);
         $options = $this->appendClassToOptions('hidden', $options);
 
@@ -352,16 +353,19 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
         foreach ($files as $file) {
             $previewItemsTemplate .= $templateEngine->render($previewTemplate, [
-                'fileSrc' => $this->fileSrc($file)
+                'fileSrc' => $this->fileSrc($file),
+                'filename' => $file
             ]);
         }
 
         $template = $this->theme->getUploadMultipleTemplate($previewItemsTemplate);
 
+        $itemTemplate = '<script type="text/x-template" id="rk-item-template">' . $previewTemplate .  '</script>';
+
         return $templateEngine->render($template, [
             'fileSrc' => $this->fileSrc($fileValue),
-            'fileField' => $this->file(null, [])
-        ]) . $this->text($name, $value, $options);
+            'fileField' => $this->file(null, ['multiple'])
+        ]) . $this->text($name, $value, $options) . $itemTemplate;
     }
 
     public function field($title, $name, $control = '', $help = '')
