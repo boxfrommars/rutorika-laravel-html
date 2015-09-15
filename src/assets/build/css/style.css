@@ -22,6 +22,24 @@
     margin-right: 20px;
 }
 
+.rk-upload-preview a[href=""]
+{
+    display: none;
+}
+
+.rk-upload-preview .sortable-handle {
+    cursor: move;
+    background-color: #fff;
+    border-color: #ddd;
+    color: #bbb;
+}
+
+.rk-upload-preview .sortable-handle:hover {
+    cursor: move;
+    background-color: #eee;
+}
+
+
 .mfp-figure:after {
     background-image: url(../img/background-pattern.png);
 }
@@ -40,12 +58,8 @@
     height:400px;
 }
 
-.rk-upload-preview a[href=""]
-{
-    display: none;
-}
-
 /* fix map controls over datetimepicker */
 .bootstrap-datetimepicker-widget {
     z-index: 1001;
 }
+
