@@ -1,7 +1,6 @@
 <?php
 
 namespace Rutorika\Html;
-use Rutorika\Html\Theme\HorizontalBootstrap;
 use Rutorika\Html\Theme\Themable;
 use StringTemplate\Engine;
 
@@ -123,6 +122,13 @@ class FormBuilder extends \Collective\Html\FormBuilder
     public function geopointField($title, $name, $value = null, $options = array(), $help = '')
     {
         $control = $this->geopoint($name, $value, $this->setDefaultOptions($options));
+
+        return $this->field($title, $name, $control, $help);
+    }
+
+    public function imageUploadMultipleField($title, $name, $value = null, $options = array(), $help = '')
+    {
+        $control = $this->imageUploadMultiple($name, $value, $this->setDefaultOptions($options));
 
         return $this->field($title, $name, $control, $help);
     }
@@ -282,70 +288,43 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function imageUpload($name, $value = null, $options = [])
     {
-        $template = '
-        <div class="rk-upload-container rk-upload-image-container">
-            <div class="rk-upload-result-wrap">
-                <a href="{fileSrc}" class="rk-upload-result"><img src="{fileSrc}" /></a>
-            </div>
-            <div>
-                <span class="btn btn-default btn-sm fileinput-button">
-                  <i class="glyphicon glyphicon-picture"></i>{fileField}
-                </span><!--
-                --><span class="btn btn-default btn-sm rk-upload-remove">
-                  <i class="glyphicon glyphicon-remove"></i>
-                </span>
-            </div>
-        </div>';
+        $previewTemplate = '<a href="{fileSrc}"><img src="{fileSrc}" /></a>';
 
-        return $this->upload($template, $name, $value, $options);
+        return $this->renderUpload($previewTemplate, $name, $value, $options);
+    }
+
+    public function imageUploadMultiple($name, $value = null, $options = [])
+    {
+        $previewTemplate = '<div class="rk-upload-item" data-filename="{filename}">
+            <a href="{fileSrc}" class="thumb" style="background-image: url({fileSrc})"></a>
+            <p><span class="btn btn-default btn-sm sortable-handle"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
+            <span class="btn btn-default btn-sm pull-right rk-upload-remove"><i class="glyphicon glyphicon-trash"></i></span></p>
+          </div>';
+
+        return $this->renderUploadMultiple($previewTemplate, $name, $value, $options);
     }
 
     public function audioUpload($name, $value = null, $options = [])
     {
-        $template = '
-        <div class="rk-upload-container rk-upload-audio-container">
-            <div class="rk-upload-result-wrap">
-                <a href="{fileSrc}" class="rk-upload-result"><audio src="{fileSrc}" controls></audio></a>
-            </div>
-            <div>
-                <span class="btn btn-default btn-sm fileinput-button">
-                  <i class="glyphicon glyphicon-picture"></i>{fileField}
-                </span><!--
-                --><span class="btn btn-default btn-sm rk-upload-remove">
-                  <i class="glyphicon glyphicon-remove"></i>
-                </span>
-            </div>
-        </div>';
+        $previewTemplate = '<a href="{fileSrc}"><audio src="{fileSrc}" controls></audio></a>';
 
-        return $this->upload($template, $name, $value, $options);
+        return $this->renderUpload($previewTemplate, $name, $value, $options);
     }
 
     public function fileUpload($name, $value = null, $options = [])
     {
-        $template = '
-        <div class="rk-upload-container rk-upload-file-container">
-            <div class="rk-upload-result-wrap">
-                <p class="form-control-static">
-                  <span class="btn btn-default btn-sm fileinput-button">
-                  <i class="glyphicon glyphicon-picture"></i>{fileField}
-                    </span><!--
-                    --><span class="btn btn-default btn-sm rk-upload-remove">
-                      <i class="glyphicon glyphicon-remove"></i>
-                    </span><!--
-                    --><a href="{fileSrc}" target="_blank" class="rk-upload-result">{fileSrc}</a>
-                </p>
-            </div>
-        </div>';
-
-        return $this->upload($template, $name, $value, $options);
+        return $this->renderUpload('', $name, $value, $options);
     }
 
-    public function upload($template, $name, $value = null, $options = [])
+    public function renderUpload($previewTemplate, $name, $value = null, $options = [])
     {
         $options = $this->appendClassToOptions('rk-uploader-field', $options);
         $options = $this->appendClassToOptions('hidden', $options);
+
         $options = $this->provideOptionToHtml('url', $options);
         $options = $this->provideOptionToHtml('type', $options);
+
+        $template = $this->theme->getUploadTemplate($previewTemplate);
 
         $fileValue = $this->getValueAttribute($name, $value);
 
@@ -355,6 +334,38 @@ class FormBuilder extends \Collective\Html\FormBuilder
             'fileSrc' => $this->fileSrc($fileValue),
             'fileField' => $this->file(null, [])
         ]) . $this->text($name, $value, $options);
+    }
+
+    public function renderUploadMultiple($previewTemplate, $name, $value = null, $options = [])
+    {
+        $options = $this->appendClassToOptions('rk-uploader-field', $options);
+        $options = $this->appendClassToOptions('rk-uploader-multiple-field', $options);
+        $options = $this->appendClassToOptions('hidden', $options);
+
+        $options = $this->provideOptionToHtml('url', $options);
+        $options = $this->provideOptionToHtml('type', $options);
+
+        $fileValue = $this->getValueAttribute($name, $value);
+        $files = strlen($fileValue) > 0 ? explode(':', $fileValue) : [];
+
+        $previewItemsTemplate = '';
+        $templateEngine = new Engine();
+
+        foreach ($files as $file) {
+            $previewItemsTemplate .= $templateEngine->render($previewTemplate, [
+                'fileSrc' => $this->fileSrc($file),
+                'filename' => $file
+            ]);
+        }
+
+        $template = $this->theme->getUploadMultipleTemplate($previewItemsTemplate);
+
+        $itemTemplate = '<script type="text/x-template" id="rk-item-template">' . $previewTemplate .  '</script>';
+
+        return $templateEngine->render($template, [
+            'fileSrc' => $this->fileSrc($fileValue),
+            'fileField' => $this->file(null, ['multiple'])
+        ]) . $this->text($name, $value, $options) . $itemTemplate;
     }
 
     public function field($title, $name, $control = '', $help = '')
@@ -410,6 +421,6 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     protected function fileSrc($filename)
     {
-        return implode('/', ['', config('rutorika-form.public_storage_path'), $filename]);
+        return !empty($filename) ? implode('/', ['', config('rutorika-form.public_storage_path'), $filename]) : '';
     }
 }

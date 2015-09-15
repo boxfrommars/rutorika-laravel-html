@@ -1,9 +1,32 @@
 $(document).ready(function(){
-  $('.rk-upload-image-container .rk-upload-result').magnificPopup({type: 'image'});
+  $('.rk-upload-container .rk-upload-preview').magnificPopup({delegate: 'a', type: 'image'});
 
   $('.rk-uploader-field').each(function () {
     var $field = $(this);
+    var isMultiple = $field.hasClass('rk-uploader-multiple-field');
     var $container = $field.siblings('.rk-upload-container');
+    var $preview = $container.find('.rk-upload-preview');
+
+    var setValue = function (filename, filepath) {
+      if (!isMultiple) {
+        $field.val(filename);
+        $container.find('.rk-upload-link').text(filename).attr('href', filepath);
+
+        $preview.find('a').attr('href', filepath);
+        $preview.find('img,audio').attr('src', filepath);
+      } else {
+
+        var template = $('#rk-item-template').html();
+        var currentValue = $field.val();
+
+        currentValue += (currentValue ? ':' : '') + filename;
+        $field.val(currentValue);
+
+        var itemHtml = template.replace(/\{fileSrc}/g, filepath).replace(/\{filename}/g, filename);
+        $preview.append(itemHtml);
+      }
+    };
+
 
     $container.find('input:file').fileupload({
       dataType: 'json',
@@ -15,48 +38,44 @@ $(document).ready(function(){
       }],
 
       done: function (e, data) {
-        var result = data.result;
-        $field.val(result.filename);
-        $container.find('.rk-upload-result').attr('href', result.path);
-        $container.trigger('uploaded', [result]);
+        setValue(data.result.filename, data.result.path);
       },
 
       fail: function (e, data) {
         console.error('Whooooops', e, data);
       }
-    })
+    });
+
+    $preview.on('click', '.rk-upload-remove', function (e) {
+      e.preventDefault();
+      if (!isMultiple) {
+        setValue('', '');
+      } else {
+        $(this).parents('.rk-upload-item').remove();
+        updateImages();
+      }
+
+    });
+
+    function updateImages () {
+      var files = [];
+
+      $preview.find('.rk-upload-item').each(function(){
+        files.push($(this).data('filename'));
+      });
+
+      $field.val(files.join(':'));
+    }
+
+    if (isMultiple) {
+      $preview.sortable({
+        handle: '.sortable-handle',
+        update: function(a, b){
+          updateImages();
+        },
+        cursor: "move"
+      });
+    }
   });
 
-  $('.rk-upload-remove').on('click', function (e) {
-    e.preventDefault();
-    var $container = $(this).parents('.rk-upload-container');
-
-    $container.siblings('.rk-uploader-field').val('');
-    $container.find('.rk-upload-result').attr('href', '');
-    $container.trigger('removed', [$container]);
-  });
-
-  $('.rk-upload-image-container')
-    .on('uploaded', function (e, result) {
-      $(this).find('.rk-upload-result img').attr('src', result.path);
-    })
-    .on('removed', function () {
-      $(this).find('.rk-upload-result img').attr('src', '');
-    });
-
-  $('.rk-upload-audio-container')
-    .on('uploaded', function (e, result) {
-      $(this).find('.rk-upload-result audio').attr('src', result.path);
-    })
-    .on('removed', function () {
-      $(this).find('.rk-upload-result audio').attr('src', '');
-    });
-
-  $('.rk-upload-file-container')
-    .on('uploaded', function (e, result) {
-      $(this).find('.rk-upload-result').text(result.filename);
-    })
-    .on('removed', function () {
-      $(this).find('.rk-upload-result').text('');
-    });
 });

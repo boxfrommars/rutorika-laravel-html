@@ -5,7 +5,7 @@ namespace Rutorika\Html\Theme;
 use Illuminate\Support\Collection;
 use Rutorika\Html\FormBuilder;
 
-class BootstrapHorizontal implements Themable
+class BootstrapHorizontal extends BootstrapAbstract implements Themable
 {
     /**
      * @var FormBuilder
