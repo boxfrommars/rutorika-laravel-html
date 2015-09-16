@@ -22,8 +22,9 @@ Form fields:
 
 {!! Form::codeField('HTML, monokai theme', 'codeField', null, ['mode' => 'html', 'theme' => 'monokai']) !!}
 
-{!! Form::imageField('Image', 'image', null, [], 'JPG or PNG') !!}
-{!! Form::fileField('File', 'file', null, [], 'PDF, DOC, DOCX <= 3Mb') !!}
+{!! Form::imageUploadField('Image', 'image', null, [], 'JPG or PNG') !!}
+{!! Form::imageUploadMultipleField('Image', 'image', null, [], 'JPG or PNG') !!}
+{!! Form::fileUploadField('File', 'file', null, [], 'PDF, DOC, DOCX <= 3Mb') !!}
 
 {!! Form::datetimeField('Date and Time', 'datetime') !!}
 {!! Form::dateField('Date', 'date') !!}
@@ -49,6 +50,7 @@ Custom controls:
 {!! Form::code('codeField', null, ['mode' => 'html', 'theme' => 'monokai']) !!}
 
 {!! Form::imageUpload('image') !!}
+{!! Form::imageUploadMultiple('image') !!}
 {!! Form::fileUpload('file') !!}
 
 {!! Form::datetimePicker('datetime') !!}
@@ -194,8 +196,9 @@ Form::close();
  - [code](#code-field)
  - [color](#color-field)
  - [geopoint](#geopoint-field)
- - [imageUpload](#image--file-field)
  - [fileUpload](#image--file-field)
+ - [imageUpload](#image--file-field)
+ - [imageUploadMultiple](#image-multiple-field)
  - [select2](#select2-field)
  - [date](#date-datetime-and-time-fields)
  - [datetime](#date-datetime-and-time-fields)
@@ -325,13 +328,13 @@ Allows you to upload files (with [Jquery File Upload](https://github.com/blueimp
 // as input (note, that this is not ->image() method, which already used as laravelcollective/html method to create img element)
 Form::imageUpload($name, $value = null, $options = [])
 // as field
-Form::imageField($title, $name, $value = null, $options = [], $help = '')
+Form::imageUploadField($title, $name, $value = null, $options = [], $help = '')
 
 // File upload
 // as input (note, that this is not ->file() method, which already used as laravelcollective/html method to create file input element)
 Form::fileUpload($name, $value = null, $options = [])
 // as field
-Form::fileField($title, $name, $value = null, $options = [], $help = '')
+Form::fileUploadField($title, $name, $value = null, $options = [], $help = '')
 
 ```
 
@@ -357,6 +360,21 @@ Route::group(['middleware' => 'auth'], function () {
 Set path to the storage folder at `public_storage_path` in the rutorika-form config (the folder in which files are saved, default `storage`)
 
 > @TODO: Note that `\Rutorika\Html\Http\UploadController` doesn't have any validation, you should implement it by yourself if you need.
+
+#### Image Multiple Field
+Allows you to upload and sort multiple images (with [Jquery File Upload](https://github.com/blueimp/jQuery-File-Upload) and JqueryUI)
+
+```
+// as input
+Form::imageUploadMultiple($name, $value = null, $options = [])
+// as field
+Form::imageUploadMultipleField($title, $name, $value = null, $options = array(), $help = '')
+```
+Where `$value` is image files urls separated by colon
+
+##### Options and Installation
+see [Image && File Field](image--file-field) options
+
 
 #### Select2 Field
 
