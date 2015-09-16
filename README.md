@@ -373,7 +373,7 @@ Form::imageUploadMultipleField($title, $name, $value = null, $options = array(),
 Where `$value` is image files urls separated by colon
 
 ##### Options and Installation
-see [Image && File Field](image--file-field) options
+see [Image && File Field](#image--file-field) options
 
 
 #### Select2 Field
