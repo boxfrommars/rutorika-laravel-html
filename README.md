@@ -18,6 +18,8 @@ Form fields:
 {!! Form::textField('Something', 'something') !!}
 {!! Form::selectField('selectField', 'selectField', [4 => 'Something', 8 => 'Wicked', 15 => 'This', 16 => 'Way', 23 => 'Comes', 42 => '.']) !!}
 
+{!! Form::booleanField('Boolean', 'boolean', 1, null, [], 'Sends 0 if has not checked') !!}
+
 {!! Form::geopointField('Place on map', 'geopoint', null, ['map' => ['center' => [45.04, 39], 'zoom' => 12]]) !!}
 
 {!! Form::codeField('HTML, monokai theme', 'codeField', null, ['mode' => 'html', 'theme' => 'monokai']) !!}
@@ -25,6 +27,7 @@ Form fields:
 {!! Form::imageUploadField('Image', 'image', null, [], 'JPG or PNG') !!}
 {!! Form::imageUploadMultipleField('Image', 'image', null, [], 'JPG or PNG') !!}
 {!! Form::fileUploadField('File', 'file', null, [], 'PDF, DOC, DOCX <= 3Mb') !!}
+{!! Form::audioUploadField('Audio', 'audio') !!}
 
 {!! Form::datetimeField('Date and Time', 'datetime') !!}
 {!! Form::dateField('Date', 'date') !!}
@@ -193,6 +196,7 @@ Form::close();
 
 ### Custom controls
 
+ - [boolean](#boolean-field)
  - [code](#code-field)
  - [color](#color-field)
  - [geopoint](#geopoint-field)
@@ -253,6 +257,16 @@ Also all error messages and corresponding css-classes if errors exists will be a
  * `Form::staticField($title, $value, $help = '')` static text
 
 ### Custom Form fields
+
+#### Boolean Field
+```php
+// as control
+Form::boolean($name, $value = 1, $checked = null, $options = [])
+// as field
+Form::booleanField($title, $name, $value = 1, $checked = null, $options = [], $help = '')
+```
+
+This field sends proper value even if checkbox is unchecked (`0` will be sent)
 
 #### Code Field
 
@@ -327,6 +341,7 @@ Allows you to upload files (with [Jquery File Upload](https://github.com/blueimp
 // Image upload
 // as input (note, that this is not ->image() method, which already used as laravelcollective/html method to create img element)
 Form::imageUpload($name, $value = null, $options = [])
+Form::imageUpload($name, $value = null, $options = [])
 // as field
 Form::imageUploadField($title, $name, $value = null, $options = [], $help = '')
 
@@ -336,13 +351,19 @@ Form::fileUpload($name, $value = null, $options = [])
 // as field
 Form::fileUploadField($title, $name, $value = null, $options = [], $help = '')
 
+// Audio upload
+Form::audioUpload($name, $value = null, $options = [])
+// as field
+Form::audioUploadField($title, $name, $value = null, $options = [], $help = '')
+
 ```
 
 ##### Options
 
-- `url` url to upload file. Default: `/upload` (You can change default url in rutorika-form config). Should return `['path' => '/public/path/to/file.jpg', 'filename' => 'to/file.jpg']`
+- `url` _string_ url to upload file. Default: `/upload` (You can change default url in rutorika-form config). Should return `['path' => '/public/path/to/file.jpg', 'filename' => 'to/file.jpg']`
   Where `path` -- path from the public folder (will be setted as src of image) and `filename` -- path to the file from storage path (will be setted as a value of the field)
-- `type` @TODO not used yet
+- `type` _string_. Defaults: *default* for `image*` and `file*` fields, and *audio* for `audio*` field. If you are using `\Rutorika\Html\Http\UploadController` then validation
+performs by rules defined at the rutorika-form config for this type (`upload.types` section).
 
 ##### Installation
 
@@ -359,7 +380,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Set path to the storage folder at `public_storage_path` in the rutorika-form config (the folder in which files are saved, default `storage`)
 
-> @TODO: Note that `\Rutorika\Html\Http\UploadController` doesn't have any validation, you should implement it by yourself if you need.
+If you need custom validation for upload fields, add your upload types with custom validation to the `upload.types` section of rutorika-form config.
 
 #### Image Multiple Field
 Allows you to upload and sort multiple images (with [Jquery File Upload](https://github.com/blueimp/jQuery-File-Upload) and JqueryUI)
