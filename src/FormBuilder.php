@@ -320,6 +320,8 @@ class FormBuilder extends \Collective\Html\FormBuilder
     {
         $previewTemplate = '<a href="{fileSrc}"><audio src="{fileSrc}" controls></audio></a>';
 
+        $options = array_merge(['type' => 'audio'], $options);
+
         return $this->renderUpload($previewTemplate, $name, $value, $options);
     }
 

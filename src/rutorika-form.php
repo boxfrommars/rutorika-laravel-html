@@ -25,7 +25,7 @@ return [
                 'rules' => 'required|mimes:doc,pdf,docs,txt'
             ],
             'audio' => [
-                'rules' => 'required|mimes:mp3,wav,ogg|max:3072'
+                'rules' => 'required|mimes:mpga,wav,ogg|max:3072'
             ],
             'video' => [
                 'rules' => 'mimes:m4v,avi,flv,mp4,mov,wmv,3gp|max:3072'
