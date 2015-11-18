@@ -62,6 +62,13 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $options);
     }
 
+    public function booleanField($title, $name, $value = 1, $checked = null, $options = [])
+    {
+        $control = '<div class="checkbox"><label>' . $this->boolean($name, $value, $checked, $options) . '</label></div>';
+
+        return $this->field($title, $name, $control, $options);
+    }
+
     public function textareaField($title, $name, $value = null, $options = array(), $help = '')
     {
         $control = $this->textarea($name, $value, $this->setDefaultOptions($options));
@@ -257,6 +264,11 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
 
     /* INPUTS */
+
+    public function boolean($name, $value = 1, $checked = null, $options = [])
+    {
+        return $this->hidden($name, false) . $this->checkbox($name, $value, $checked, $options);
+    }
 
     public function code($name, $value = null, $options = [])
     {
