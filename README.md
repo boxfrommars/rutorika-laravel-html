@@ -72,12 +72,12 @@ Tested with Twitter Bootstrap >= 3.3.0
 
 ## Install
 
-While this package is in beta you should install it from github:
+While this package is in beta you should install it with composer from github repository:
 
 ```json
     "require": {
         // ...
-        "rutorika/laravel-html": "dev-master",
+        "rutorika/laravel-html": "dev-master", // don't do that in production
     },
     "repositories": [
         {
@@ -104,7 +104,7 @@ Add service provider and facades to your `config/app.php`
 ]
 ```
 
-Publish packeage configuration and assets. This will add `/config/rutorika-form.php` configuration file and `public/vendor/rutorika-form/*` assets (js, css and few images)
+Publish package configuration and assets. This will add `/config/rutorika-form.php` configuration file and `public/vendor/rutorika-form/*` assets (js, css and few images)
 
 ```bash
 $ php artisan vendor:publish --provider="Rutorika\Html\HtmlServiceProvider"
@@ -352,7 +352,7 @@ You should implement saving of file on the server side or use `\Rutorika\Html\Ht
 Route::group(['middleware' => 'auth'], function () {
 
     // ... other admin routes
-    
+
     Route::post('/upload', '\Rutorika\Html\Http\UploadController@upload');
 });
 ```

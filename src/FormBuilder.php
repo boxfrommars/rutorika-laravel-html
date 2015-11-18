@@ -55,18 +55,18 @@ class FormBuilder extends \Collective\Html\FormBuilder
         return $this->field($title, $name, $control, $help);
     }
 
-    public function checkboxField($title, $name, $value = 1, $checked = null, $options = [])
+    public function checkboxField($title, $name, $value = 1, $checked = null, $options = [], $help = '')
     {
         $control = '<div class="checkbox"><label>' . $this->checkbox($name, $value, $checked, $options) . '</label></div>';
 
-        return $this->field($title, $name, $control, $options);
+        return $this->field($title, $name, $control, $help);
     }
 
-    public function booleanField($title, $name, $value = 1, $checked = null, $options = [])
+    public function booleanField($title, $name, $value = 1, $checked = null, $options = [], $help = '')
     {
         $control = '<div class="checkbox"><label>' . $this->boolean($name, $value, $checked, $options) . '</label></div>';
 
-        return $this->field($title, $name, $control, $options);
+        return $this->field($title, $name, $control, $help);
     }
 
     public function textareaField($title, $name, $value = null, $options = array(), $help = '')
