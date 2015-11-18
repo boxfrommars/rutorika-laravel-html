@@ -267,7 +267,7 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     public function boolean($name, $value = 1, $checked = null, $options = [])
     {
-        return $this->hidden($name, 0) . $this->checkbox($name, $value, $checked, $options);
+        return '<input type="hidden" name="' . $name . '" value="0" />' . $this->checkbox($name, $value, $checked, $options);
     }
 
     public function code($name, $value = null, $options = [])
