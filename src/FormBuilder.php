@@ -440,6 +440,6 @@ class FormBuilder extends \Collective\Html\FormBuilder
 
     protected function fileSrc($filename)
     {
-        return !empty($filename) ? implode('/', ['', config('rutorika-form.public_storage_path'), $filename]) : '';
+        return stored_file_src($filename);
     }
 }
